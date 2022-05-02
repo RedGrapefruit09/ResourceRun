@@ -4,6 +4,8 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "New Season", menuName = "World/Season")]
 public class Season : ScriptableObject
 {
+    public string seasonName;
+    
     [Header("Ground Tiles")]
     public Tile groundCenterTile;
     public Tile groundRightTile;

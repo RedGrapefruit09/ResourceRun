@@ -17,6 +17,8 @@ public class WorldGenerator : MonoBehaviour
             step.generator = this;
         }
         
+        Log.Info("Initialized world generator");
+        
         GenerateWorld();
     }
     
@@ -26,6 +28,8 @@ public class WorldGenerator : MonoBehaviour
         {
             Destroy(obj);
         }
+        
+        Log.Info($"Destroyed {_worldObjectPool.Count} objects from the world object pool");
 
         foreach (var step in steps)
         {
@@ -33,16 +37,32 @@ public class WorldGenerator : MonoBehaviour
         }
         
         _worldObjectPool.Clear();
+        
+        Log.Info("World generation has been cleared");
     }
     
     private void GenerateWorld()
     {
         ClearWorld();
 
+        if (worldWidth % 2 != 0)
+        {
+            Log.Warning($"Non-power-of-two world widths aren't supported. {worldWidth} will be converted to {worldWidth + 1}");
+            worldWidth++;
+        }
+
+        if (worldHeight % 2 != 0)
+        {
+            Log.Warning($"Non-power-of-two world heights aren't supported. {worldHeight} will be converted to {worldHeight + 1}");
+            worldHeight++;
+        }
+        
         foreach (var step in steps)
         {
             step.Generate();
         }
+        
+        Log.Info($"Generated world: {worldWidth}x{worldHeight}, {season.seasonName}");
     }
 
     public void RegisterWorldObject(GameObject obj)

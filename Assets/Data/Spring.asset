@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a0003cc819746a09cd51d34449d4302, type: 3}
   m_Name: Spring
   m_EditorClassIdentifier: 
+  seasonName: Spring
   groundCenterTile: {fileID: 11400000, guid: 6b932b72395daaf47b6ee469ccbd6e6a, type: 2}
   groundRightTile: {fileID: 11400000, guid: 5c84fbab57c10a840899f5c32c4def18, type: 2}
   groundLeftTile: {fileID: 11400000, guid: 258200ef9540abc4598a81e0970adb51, type: 2}

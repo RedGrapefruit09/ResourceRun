@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (_stamina >= minStamina && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
+            if (_stamina > minStamina + 0.1f && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
             {
                 _stamina -= staminaConsumption * Time.deltaTime;
                 Move(sprintSpeed);
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!sprinted)
         {
-            _stamina = Mathf.Clamp(_stamina + staminaRegeneration * Time.deltaTime, minStamina, maxStamina);
+            _stamina = Mathf.Clamp(_stamina + staminaRegeneration * Time.deltaTime, 0f, maxStamina);
         }
 
         staminaBar.fillAmount = Mathf.Clamp(_stamina / maxStamina, 0f, 1f);

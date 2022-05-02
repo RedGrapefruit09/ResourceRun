@@ -291,8 +291,8 @@ MonoBehaviour:
   steps:
   - {fileID: 558161177}
   - {fileID: 558161178}
-  worldWidth: 10
-  worldHeight: 10
+  worldWidth: 501
+  worldHeight: 501
   season: {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}
 --- !u!114 &558161177
 MonoBehaviour:
@@ -703,11 +703,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28eaa1f3945b79a4289c7b82a21855d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  shiftSpeed: 2
+  movementSpeed: 2.5
+  shiftSpeed: 1.5
   sprintSpeed: 4.5
   maxStamina: 100
-  minStamina: 0
+  minStamina: 8
   staminaConsumption: 7
   staminaRegeneration: 3
   staminaBar: {fileID: 2093605067}

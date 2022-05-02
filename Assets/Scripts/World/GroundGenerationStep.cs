@@ -1,0 +1,75 @@
+﻿using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class GroundGenerationStep : GenerationStep
+{
+    [SerializeField] private Tilemap groundTilemap;
+    
+    public override void Generate()
+    {
+        groundTilemap.transform.position = new Vector3(
+            -(generator.worldWidth / 2),
+            -(generator.worldHeight / 2));
+        
+        for (var x = 0; x < generator.worldWidth; ++x)
+        {
+            for (var y = 0; y < generator.worldHeight; ++y)
+            {
+                groundTilemap.SetTile(new Vector3Int(x, y, 0), GetGroundTile(x, y));
+            }
+        }
+    }
+
+    public override void Clear()
+    {
+        foreach (var pos in groundTilemap.cellBounds.allPositionsWithin)
+        {
+            groundTilemap.SetTile(pos, null);
+        }
+    }
+
+    private Tile GetGroundTile(int x, int y)
+    {
+        if (y == 0)
+        {
+            if (x == 0)
+            {
+                return generator.season.groundBottomLeftTile;
+            }
+
+            if (x == generator.worldWidth - 1)
+            {
+                return generator.season.groundBottomRightTile;
+            }
+
+            return generator.season.groundBottomTile;
+        }
+
+        if (y == generator.worldHeight - 1)
+        {
+            if (x == 0)
+            {
+                return generator.season.groundTopLeftTile;
+            }
+
+            if (x == generator.worldWidth - 1)
+            {
+                return generator.season.groundTopRightTile;
+            }
+
+            return generator.season.groundTopTile;
+        }
+
+        if (x == 0)
+        {
+            return generator.season.groundLeftTile;
+        }
+
+        if (x == generator.worldWidth - 1)
+        {
+            return generator.season.groundRightTile;
+        }
+
+        return generator.season.groundCenterTile;
+    }
+}

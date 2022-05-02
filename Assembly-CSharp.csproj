@@ -41,9 +41,12 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\WorldGenerator.cs" />
-     <Compile Include="Assets\Scripts\Season.cs" />
+     <Compile Include="Assets\Scripts\World\WorldGenerator.cs" />
+     <Compile Include="Assets\Scripts\World\Season.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\World\GenerationStep.cs" />
+     <Compile Include="Assets\Scripts\World\BorderGenerationStep.cs" />
+     <Compile Include="Assets\Scripts\World\GroundGenerationStep.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

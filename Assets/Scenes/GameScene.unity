@@ -253,6 +253,8 @@ GameObject:
   m_Component:
   - component: {fileID: 558161175}
   - component: {fileID: 558161176}
+  - component: {fileID: 558161177}
+  - component: {fileID: 558161178}
   m_Layer: 0
   m_Name: World Generator
   m_TagString: Untagged
@@ -286,9 +288,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d983bc53ea646a5b06e019b99cd995f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  steps:
+  - {fileID: 558161177}
+  - {fileID: 558161178}
   worldWidth: 10
   worldHeight: 10
-  currentSeason: {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}
+  season: {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}
+--- !u!114 &558161177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558161174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a6c8f28b734f29b486ead3b7ec80d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generator: {fileID: 0}
+--- !u!114 &558161178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558161174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bdaffd344324110a643e7688f17d397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generator: {fileID: 0}
   groundTilemap: {fileID: 766318539}
 --- !u!1 &766318536
 GameObject:
@@ -633,7 +664,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1399999697
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -679,7 +710,6 @@ MonoBehaviour:
   minStamina: 0
   staminaConsumption: 7
   staminaRegeneration: 3
-  stamina: 0
   staminaBar: {fileID: 2093605067}
 --- !u!1 &1487494765
 GameObject:

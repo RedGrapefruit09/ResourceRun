@@ -12,14 +12,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float minStamina;
     [SerializeField] private float staminaConsumption;
     [SerializeField] private float staminaRegeneration;
-    public float stamina;
     [SerializeField] private Image staminaBar;
 
     private Rigidbody2D _rigidBody;
+    private float _stamina;
 
     private void Start()
     {
-        stamina = maxStamina;
+        _stamina = maxStamina;
         _rigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -33,9 +33,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (stamina >= minStamina && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
+            if (_stamina >= minStamina && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
             {
-                stamina -= staminaConsumption * Time.deltaTime;
+                _stamina -= staminaConsumption * Time.deltaTime;
                 Move(sprintSpeed);
                 sprinted = true;
             }
@@ -47,10 +47,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (!sprinted)
         {
-            stamina = Mathf.Clamp(stamina + staminaRegeneration * Time.deltaTime, minStamina, maxStamina);
+            _stamina = Mathf.Clamp(_stamina + staminaRegeneration * Time.deltaTime, minStamina, maxStamina);
         }
 
-        staminaBar.fillAmount = Mathf.Clamp(stamina / maxStamina, 0f, 1f);
+        staminaBar.fillAmount = Mathf.Clamp(_stamina / maxStamina, 0f, 1f);
     }
 
     private void Move(float speed)

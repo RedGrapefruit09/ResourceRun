@@ -249,8 +249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d983bc53ea646a5b06e019b99cd995f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldWidth: 1500
-  worldHeight: 1500
+  worldWidth: 10
+  worldHeight: 10
   currentSeason: {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}
   groundTilemap: {fileID: 766318539}
 --- !u!1 &766318536

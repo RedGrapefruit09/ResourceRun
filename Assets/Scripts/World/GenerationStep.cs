@@ -11,8 +11,8 @@ public abstract class GenerationStep : MonoBehaviour
     protected Vector3 CalculateObjectPosition(int x, int y, float z = 0f)
     {
         return new Vector3(
-            x - generator.worldWidth / 2f,
-            y - generator.worldHeight / 2f,
+            x - generator.worldWidth / 2f + 0.5f,
+            y - generator.worldHeight / 2f + 0.5f,
             z);
     }
 

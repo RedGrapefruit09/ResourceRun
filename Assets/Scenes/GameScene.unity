@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 558161176}
   - component: {fileID: 558161177}
   - component: {fileID: 558161178}
+  - component: {fileID: 558161179}
   m_Layer: 0
   m_Name: World Generator
   m_TagString: Untagged
@@ -291,8 +292,9 @@ MonoBehaviour:
   steps:
   - {fileID: 558161177}
   - {fileID: 558161178}
-  worldWidth: 501
-  worldHeight: 501
+  - {fileID: 558161179}
+  worldWidth: 24
+  worldHeight: 24
   season: {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}
 --- !u!114 &558161177
 MonoBehaviour:
@@ -321,6 +323,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generator: {fileID: 0}
   groundTilemap: {fileID: 766318539}
+--- !u!114 &558161179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558161174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb335c82ff5afdd4b94bfc3da4da6539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generator: {fileID: 0}
 --- !u!1 &766318536
 GameObject:
   m_ObjectHideFlags: 0

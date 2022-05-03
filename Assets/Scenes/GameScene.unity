@@ -293,6 +293,7 @@ MonoBehaviour:
   - {fileID: 558161177}
   - {fileID: 558161178}
   - {fileID: 558161179}
+  player: {fileID: 1399999693}
   worldWidth: 30
   worldHeight: 30
   season: {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}

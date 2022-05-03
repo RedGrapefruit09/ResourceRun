@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class ObjectGenerationStep : GenerationStep
 {
@@ -27,8 +25,8 @@ public class ObjectGenerationStep : GenerationStep
 
     private void OccupySpawnArea()
     {
-        var centerX = generator.worldWidth / 2;
-        var centerY = generator.worldHeight / 2;
+        var centerX = Mathf.RoundToInt(generator.player.transform.position.x);
+        var centerY = Mathf.RoundToInt(generator.player.transform.position.y);
 
         for (var x = centerX - spawnArea; x < centerX + spawnArea; ++x)
         {
@@ -41,11 +39,8 @@ public class ObjectGenerationStep : GenerationStep
     
     private void GenerateGroup(ObjectGroup group)
     {
-        var parentObject = new GameObject { name = group.groupName };
-        generator.RegisterWorldObject(parentObject);
-
-        var bag = new WeightedRandomBag<ObjectVariant>();
-        foreach (var variant in group.variants) bag.AddEntry(variant, variant.frequency);
+        var weightedBag = new WeightedRandomBag<ObjectVariant>();
+        foreach (var variant in group.variants) weightedBag.AddEntry(variant, variant.frequency);
 
         for (var x = excludedEdgeArea; x < generator.worldWidth - excludedEdgeArea; ++x)
         {
@@ -57,17 +52,18 @@ public class ObjectGenerationStep : GenerationStep
                 var r = Random.Range(0, 1001);
                 if (r > group.frequency) continue;
 
-                var clone = Instantiate(group.basePrefab, parentObject.transform);
+                var clone = Instantiate(group.basePrefab);
                 clone.transform.position = (Vector3)CalculateObjectPosition(x, y) + group.offset;
 
-                var variant = bag.GetRandom();
+                var variant = weightedBag.GetRandom();
                 clone.GetComponent<SpriteRenderer>().sprite = variant.sprite;
-                Debug.Log($"Variant - {variant.sprite.name}");
 
                 if (clone.TryGetComponent<BoxCollider2D>(out var boxCollider))
                 {
                     boxCollider.size = variant.colliderSize;
                 }
+                
+                generator.AddPositionalObject(x, y, clone);
                 
                 _occupiedPositions.Add(gridPos);
             }

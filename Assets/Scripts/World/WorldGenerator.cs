@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
-    public GenerationStep[] steps;
+    [SerializeField] private GenerationStep[] steps;
     public int worldWidth;
     public int worldHeight;
     public Season season;

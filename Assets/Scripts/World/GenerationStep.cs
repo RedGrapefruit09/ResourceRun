@@ -8,12 +8,11 @@ public abstract class GenerationStep : MonoBehaviour
     
     public virtual void Clear() {}
 
-    protected Vector3 CalculateObjectPosition(int x, int y, float z = 0f)
+    protected Vector2 CalculateObjectPosition(int x, int y)
     {
-        return new Vector3(
+        return new Vector2(
             x - generator.worldWidth / 2f + 0.5f,
-            y - generator.worldHeight / 2f + 0.5f,
-            z);
+            y - generator.worldHeight / 2f + 0.5f);
     }
 
     protected T GetRandomListElement<T>(T[] list)

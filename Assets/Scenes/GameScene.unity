@@ -293,8 +293,8 @@ MonoBehaviour:
   - {fileID: 558161177}
   - {fileID: 558161178}
   - {fileID: 558161179}
-  worldWidth: 15
-  worldHeight: 15
+  worldWidth: 30
+  worldHeight: 30
   season: {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}
 --- !u!114 &558161177
 MonoBehaviour:
@@ -603,7 +603,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399999693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 519420032}

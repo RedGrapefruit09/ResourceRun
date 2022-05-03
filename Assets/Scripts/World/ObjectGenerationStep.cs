@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ObjectGenerationStep : GenerationStep
 {
@@ -16,7 +18,10 @@ public class ObjectGenerationStep : GenerationStep
         
         foreach (var objectGroup in generator.season.objectGroups)
         {
-            GenerateGroup(objectGroup);
+            if (objectGroup.variants.Count > 0)
+            {
+                GenerateGroup(objectGroup);
+            }
         }
     }
 
@@ -39,6 +44,9 @@ public class ObjectGenerationStep : GenerationStep
         var parentObject = new GameObject { name = group.groupName };
         generator.RegisterWorldObject(parentObject);
 
+        var bag = new WeightedRandomBag<ObjectVariant>();
+        foreach (var variant in group.variants) bag.AddEntry(variant, variant.frequency);
+
         for (var x = excludedEdgeArea; x < generator.worldWidth - excludedEdgeArea; ++x)
         {
             for (var y = excludedEdgeArea; y < generator.worldHeight - excludedEdgeArea; ++y)
@@ -52,8 +60,14 @@ public class ObjectGenerationStep : GenerationStep
                 var clone = Instantiate(group.basePrefab, parentObject.transform);
                 clone.transform.position = (Vector3)CalculateObjectPosition(x, y) + group.offset;
 
-                var sprite = GetRandomListElement(group.variants);
-                clone.GetComponent<SpriteRenderer>().sprite = sprite;
+                var variant = bag.GetRandom();
+                clone.GetComponent<SpriteRenderer>().sprite = variant.sprite;
+                Debug.Log($"Variant - {variant.sprite.name}");
+
+                if (clone.TryGetComponent<BoxCollider2D>(out var boxCollider))
+                {
+                    boxCollider.size = variant.colliderSize;
+                }
                 
                 _occupiedPositions.Add(gridPos);
             }

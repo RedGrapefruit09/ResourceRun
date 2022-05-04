@@ -1,6 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// A <see cref="GenerationStep"/> for generating ground tiles.
+///
+/// For optimization purposes, instead of creating a <see cref="GameObject"/> with a <see cref="SpriteRenderer"/>
+/// for every ground tile (which stresses the engine a lot), this <see cref="GenerationStep"/> uses a pre-defined
+/// <see cref="Tilemap"/> on the scene and streams tiles set from the <see cref="Season"/> into the <see cref="Tilemap"/>
+/// at runtime.
+///
+/// This also does automatic tiling to get the corners and up, right, left, down sides of the ground being set
+/// correctly.
+/// </summary>
 public class GroundGenerationStep : GenerationStep
 {
     [SerializeField] private Tilemap groundTilemap;

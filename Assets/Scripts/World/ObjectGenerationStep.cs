@@ -2,10 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// This <see cref="GenerationStep"/> is for spawning in different objects from <see cref="ObjectGroup"/>s.
+/// </summary>
 public class ObjectGenerationStep : GenerationStep
 {
-    [SerializeField] private int spawnArea;
-    [SerializeField] private int excludedEdgeArea;
+    [SerializeField] [Tooltip("The spawn area around the player which will be blocked from spawning objects in")]
+    private int spawnArea;
+    [SerializeField] [Tooltip("The excluded area for generating objects around every edge of the world")]
+    private int excludedEdgeArea;
     
     private readonly List<Vector2Int> _occupiedPositions = new List<Vector2Int>();
 
@@ -25,8 +30,8 @@ public class ObjectGenerationStep : GenerationStep
 
     private void OccupySpawnArea()
     {
-        var centerX = Mathf.RoundToInt(generator.player.transform.position.x);
-        var centerY = Mathf.RoundToInt(generator.player.transform.position.y);
+        var centerX = generator.worldWidth / 2;
+        var centerY = generator.worldHeight / 2;
 
         for (var x = centerX - spawnArea; x < centerX + spawnArea; ++x)
         {
@@ -40,7 +45,7 @@ public class ObjectGenerationStep : GenerationStep
     private void GenerateGroup(ObjectGroup group)
     {
         var weightedBag = new WeightedRandomBag<ObjectVariant>();
-        foreach (var variant in group.variants) weightedBag.AddEntry(variant, variant.frequency);
+        foreach (var variant in group.variants) weightedBag.AddEntry(variant, variant.weight);
 
         for (var x = excludedEdgeArea; x < generator.worldWidth - excludedEdgeArea; ++x)
         {

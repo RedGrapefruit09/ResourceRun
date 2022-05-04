@@ -51,6 +51,10 @@
      <Compile Include="Assets\Scripts\World\ObjectGenerationStep.cs" />
      <Compile Include="Assets\Scripts\World\Season.cs" />
      <Compile Include="Assets\Scripts\Utilities\WeightedRandomBag.cs" />
+     <Compile Include="Assets\Scripts\Inventory\Item.cs" />
+     <Compile Include="Assets\Scripts\Inventory\ItemStack.cs" />
+     <Compile Include="Assets\Scripts\Inventory\SimpleItem.cs" />
+     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

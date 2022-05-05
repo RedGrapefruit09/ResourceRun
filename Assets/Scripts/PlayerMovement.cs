@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float staminaRegeneration;
     [SerializeField] private Image staminaBar;
 
+    public PlayerFacing Facing { get; private set; } = PlayerFacing.Right;
+    
     private Rigidbody2D _rigidBody;
     private float _stamina;
 
@@ -58,5 +60,23 @@ public class PlayerMovement : MonoBehaviour
         var horizontal = Input.GetAxis("Horizontal") * speed;
         var vertical = Input.GetAxis("Vertical") * speed;
         _rigidBody.velocity = new Vector2(horizontal, vertical);
+
+        if (horizontal > 0f)
+        {
+            Facing = PlayerFacing.Right;
+        }
+        else
+        {
+            if (horizontal < 0f)
+            {
+                Facing = PlayerFacing.Left;
+            }
+        }
     }
+}
+
+public enum PlayerFacing
+{
+    Left,
+    Right
 }

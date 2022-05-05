@@ -16,16 +16,6 @@ public class SimpleItem : Item
         transform.localScale = new Vector3(0.75f, 0.75f, 1f);
     }
 
-    public override void OnPickedUp()
-    {
-        
-    }
-
-    public override void OnDropped()
-    {
-        
-    }
-
     public override void OnSelected()
     {
         gameObject.SetActive(true);

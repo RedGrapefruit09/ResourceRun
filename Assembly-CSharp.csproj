@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Inventory\Item.cs" />
      <Compile Include="Assets\Scripts\World\ObjectGenerationStep.cs" />
      <Compile Include="Assets\Scripts\World\Season.cs" />
+     <Compile Include="Assets\Scripts\Inventory\DroppedItem.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

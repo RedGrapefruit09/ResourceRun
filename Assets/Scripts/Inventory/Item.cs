@@ -7,10 +7,6 @@ public abstract class Item : MonoBehaviour
 
     public int Amount { get; private set; } = 1;
 
-    public abstract void OnPickedUp();
-
-    public abstract void OnDropped();
-
     public abstract void OnSelected();
 
     public abstract void OnDeselected();

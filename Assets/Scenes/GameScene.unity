@@ -3168,7 +3168,7 @@ GameObject:
   - component: {fileID: 1399999698}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4294,6 +4294,7 @@ MonoBehaviour:
   - itemImage: {fileID: 1637665585}
     selectorImage: {fileID: 2006635530}
     amountText: {fileID: 421629727}
+  droppedItemPrefab: {fileID: 7118710301252497892, guid: 930532f0f5573dd488ef6735c5cabc58, type: 3}
   testItem: {fileID: 8931808032263607089, guid: 379c8d1954d043e40a2630472acd1bb0, type: 3}
 --- !u!1 &1622823590
 GameObject:

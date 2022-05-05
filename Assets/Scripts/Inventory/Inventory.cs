@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Inventory : MonoBehaviour
 {
@@ -20,15 +21,19 @@ public class Inventory : MonoBehaviour
     };
 
     [SerializeField] private InventoryUISlot[] slots;
+    [SerializeField] private GameObject droppedItemPrefab;
     [SerializeField] private GameObject testItem;
 
     private readonly List<Item> _items = new List<Item>();
     private int _selectedItemSlot = 1;
     private Item _selectedItem;
+    private Transform _playerTransform;
     private const int InventorySize = 10;
 
     private void Start()
     {
+        _playerTransform = FindObjectOfType<PlayerMovement>().transform;
+        
         for (var i = 0; i < InventorySize; ++i)
         {
             _items.Add(null);
@@ -36,15 +41,8 @@ public class Inventory : MonoBehaviour
         
         SelectItem(1);
         var clone = Instantiate(testItem);
-        Set(1, clone.GetComponent<Item>());
-    }
-
-    private static bool IsSlotInvalid(int slot)
-    {
-        if (slot > 0 && slot <= InventorySize) return false;
-        
-        Log.Error($"Tried to get/set an Item to/from an invalid slot: {slot}");
-        return true;
+        Insert(clone.GetComponent<Item>());
+        SelectItem(1);
     }
 
     public Item Get(int slot)
@@ -59,30 +57,36 @@ public class Inventory : MonoBehaviour
         _items[slot - 1] = item;
         UpdateUI();
     }
-
-    private void UpdateUI()
+    
+    public void Insert(Item insertedItem)
     {
         for (var i = 1; i <= InventorySize; ++i)
         {
-            var item = _items[i - 1];
-            var slot = slots[i - 1];
+            var item = Get(i);
 
-            slot.selectorImage.gameObject.SetActive(i == _selectedItemSlot);
-
+            // The slot is empty, so it can be filled with the inserted item
             if (item == null)
             {
-                slot.amountText.gameObject.SetActive(false);
-                slot.itemImage.gameObject.SetActive(false);
-                continue;
+                Set(i, insertedItem);
+                return;
             }
+            
+            // The two items aren't of the same type
+            if (item.label != insertedItem.label) continue;
+            
+            var space = item.maxCount - item.Amount;
 
-            slot.amountText.gameObject.SetActive(true);
-            slot.amountText.text = item.Amount.ToString();
-            slot.itemImage.gameObject.SetActive(true);
-            slot.itemImage.sprite = item.GetComponent<SpriteRenderer>().sprite;
+            // There's not enough space to merge into this slot
+            if (space < insertedItem.Amount) continue;
+            
+            // Merge two items together, adding together the amounts
+            item.Increment(insertedItem.Amount);
+            UpdateUI();
+            Destroy(insertedItem.gameObject);
+            return;
         }
     }
-
+    
     public void SelectItem(int slot)
     {
         if (_selectedItem != null)
@@ -101,6 +105,29 @@ public class Inventory : MonoBehaviour
         UpdateUI();
     }
 
+    private void UpdateUI()
+    {
+        for (var i = 1; i <= InventorySize; ++i)
+        {
+            var item = Get(i);
+            var slot = slots[i - 1];
+
+            slot.selectorImage.gameObject.SetActive(i == _selectedItemSlot);
+
+            if (item == null)
+            {
+                slot.amountText.gameObject.SetActive(false);
+                slot.itemImage.gameObject.SetActive(false);
+                continue;
+            }
+
+            slot.amountText.gameObject.SetActive(true);
+            slot.amountText.text = item.Amount.ToString();
+            slot.itemImage.gameObject.SetActive(true);
+            slot.itemImage.sprite = item.GetComponent<SpriteRenderer>().sprite;
+        }
+    }
+
     private void Update()
     {
         for (var i = 1; i <= SlotSelectBindings.Count; ++i)
@@ -112,6 +139,24 @@ public class Inventory : MonoBehaviour
                 SelectItem(i);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Q) && _selectedItem != null)
+        {
+            var pos = new Vector3(_playerTransform.position.x, _playerTransform.position.y + 1f, 0f);
+            var clone = Instantiate(droppedItemPrefab, pos, Quaternion.identity);
+            clone.GetComponent<DroppedItem>().originalItem = _selectedItem;
+            
+            _selectedItem.OnDeselected();
+            Set(_selectedItemSlot, null);
+        }
+    }
+    
+    private static bool IsSlotInvalid(int slot)
+    {
+        if (slot > 0 && slot <= InventorySize) return false;
+        
+        Log.Error($"Tried to get/set an Item to/from an invalid slot: {slot}");
+        return true;
     }
 }
 

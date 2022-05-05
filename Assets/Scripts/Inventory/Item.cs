@@ -13,12 +13,9 @@ public abstract class Item : MonoBehaviour
 
     public abstract string BuildTooltip();
 
-    public bool Increment(int value = 1)
+    public void Increment(int value = 1)
     {
-        if (Amount + value > maxCount) return false;
-        
         Amount += value;
-        return true;
     }
 
     public void Decrement(int value = 1)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class Inventory : MonoBehaviour
 {
@@ -22,12 +21,16 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private InventoryUISlot[] slots;
     [SerializeField] private GameObject droppedItemPrefab;
+    [SerializeField] private GameObject tooltipBox;
+    [SerializeField] private Text itemNameText;
+    [SerializeField] private Text itemTooltipText;
     [SerializeField] private GameObject testItem;
 
     private readonly List<Item> _items = new List<Item>();
     private int _selectedItemSlot = 1;
     private Item _selectedItem;
     private Transform _playerTransform;
+    private bool _tooltipShown;
     private const int InventorySize = 10;
 
     private void Start()
@@ -39,9 +42,11 @@ public class Inventory : MonoBehaviour
             _items.Add(null);
         }
         
-        SelectItem(1);
+        tooltipBox.SetActive(false);
+        
         var clone = Instantiate(testItem);
         Insert(clone.GetComponent<Item>());
+        
         SelectItem(1);
     }
 
@@ -89,6 +94,8 @@ public class Inventory : MonoBehaviour
     
     public void SelectItem(int slot)
     {
+        HideTooltip();
+        
         if (_selectedItem != null)
         {
             _selectedItem.OnDeselected();
@@ -96,13 +103,29 @@ public class Inventory : MonoBehaviour
         
         _selectedItemSlot = slot;
         _selectedItem = Get(slot);
-
+        
         if (_selectedItem != null)
         {
             _selectedItem.OnSelected();
         }
         
         UpdateUI();
+    }
+
+    private void HideTooltip()
+    {
+        tooltipBox.SetActive(false);
+        _tooltipShown = false;
+    }
+
+    private void ShowTooltip()
+    {
+        if (_selectedItem == null) return;
+        
+        _tooltipShown = true;
+        tooltipBox.SetActive(true);
+        itemNameText.text = _selectedItem.label;
+        itemTooltipText.text = _selectedItem.BuildTooltip();
     }
 
     private void UpdateUI()
@@ -148,6 +171,23 @@ public class Inventory : MonoBehaviour
             
             _selectedItem.OnDeselected();
             Set(_selectedItemSlot, null);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (_tooltipShown)
+            {
+                HideTooltip();
+            }
+            else
+            {
+                ShowTooltip();
+            }
+        }
+
+        if (_tooltipShown && _selectedItem != null)
+        {
+            itemTooltipText.text = _selectedItem.BuildTooltip();
         }
     }
     

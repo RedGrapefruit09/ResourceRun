@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Image staminaBar;
 
     public PlayerFacing Facing { get; private set; } = PlayerFacing.Right;
+    public bool Frozen { private get; set; }
     
     private Rigidbody2D _rigidBody;
     private float _stamina;
@@ -27,6 +28,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (Frozen)
+        {
+            _rigidBody.velocity = Vector2.zero;
+            return;
+        }
+        
         var sprinted = false;
         
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))

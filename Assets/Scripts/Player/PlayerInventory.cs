@@ -67,7 +67,16 @@ public class PlayerInventory : MonoBehaviour
         if (IsSlotInvalid(slot)) return;
 
         _items[slot - 1] = item;
-        UpdateUI();
+
+        if (slot == _selectedItemSlot)
+        {
+            _selectedItem = item;
+
+            if (item != null)
+            {
+                _selectedItem.OnSelected();
+            }
+        }
     }
     
     public bool Insert(Item insertedItem)
@@ -93,7 +102,6 @@ public class PlayerInventory : MonoBehaviour
             
             // Merge two items together, adding together the amounts
             item.Increment(insertedItem.Amount);
-            UpdateUI();
             Destroy(insertedItem.gameObject);
             return true;
         }
@@ -103,9 +111,19 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveItem(Item item)
     {
-        var slot = _items.IndexOf(item);
+        var slot = _items.IndexOf(item) + 1;
         Set(slot, null);
-        Destroy(item);
+        Destroy(item.gameObject);
+    }
+
+    public Item GetSelectedItem()
+    {
+        if (_selectedItem == null)
+        {
+            throw new NullReferenceException("Selected item is null");
+        }
+        
+        return _selectedItem;
     }
     
     #endregion
@@ -130,6 +148,19 @@ public class PlayerInventory : MonoBehaviour
 
     private void UpdateTooltipUI()
     {
+        if (_tooltipShown)
+        {
+            if (_selectedItem != null)
+            {
+                itemTooltipText.text = _selectedItem.BuildTooltip();
+            }
+            else
+            {
+                _tooltipShown = false;
+                HideTooltip();
+            }
+        }
+        
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (_tooltipShown)
@@ -140,11 +171,6 @@ public class PlayerInventory : MonoBehaviour
             {
                 ShowTooltip();
             }
-        }
-
-        if (_tooltipShown && _selectedItem != null)
-        {
-            itemTooltipText.text = _selectedItem.BuildTooltip();
         }
     }
     
@@ -168,8 +194,6 @@ public class PlayerInventory : MonoBehaviour
         {
             _selectedItem.OnSelected();
         }
-        
-        UpdateUI();
     }
 
     private void SelectWithKeyboard()
@@ -225,9 +249,10 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        _selectedItem = Get(_selectedItemSlot);
+        //_selectedItem = Get(_selectedItemSlot);
         SelectWithKeyboard();
         if (Input.GetKeyDown(KeyCode.Q) && _selectedItem != null) DropItem();
+        UpdateUI();
         UpdateTooltipUI();
     }
     

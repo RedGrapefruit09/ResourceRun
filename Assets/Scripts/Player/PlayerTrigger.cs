@@ -18,11 +18,19 @@ public class PlayerTrigger : MonoBehaviour
         _predicate = obj => obj.GetComponent<T>() != null;
     }
 
+    private void Update()
+    {
+        if (TriggerObject == null)
+        {
+            Triggered = false;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var obj = collision.gameObject;
 
-        if (_predicate.Invoke(obj))
+        if (_predicate.Invoke(obj) && obj != null)
         {
             Triggered = true;
             TriggerObject = obj;
@@ -33,7 +41,7 @@ public class PlayerTrigger : MonoBehaviour
     {
         var obj = collision.gameObject;
 
-        if (_predicate.Invoke(obj))
+        if (_predicate.Invoke(obj) && obj != null)
         {
             Triggered = true;
             TriggerObject = obj;

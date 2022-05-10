@@ -31,7 +31,7 @@ public class SimpleItem : Item
         return tooltip;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (_playerMovement.Facing == PlayerFacing.Left)
         {

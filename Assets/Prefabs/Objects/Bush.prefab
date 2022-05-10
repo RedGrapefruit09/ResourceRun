@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6226528335105750159}
   - component: {fileID: -5713326546528411535}
   - component: {fileID: 812437811373551268}
+  - component: {fileID: 26389446753018242}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
@@ -109,3 +110,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
+--- !u!114 &26389446753018242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6752589934140906853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d49b358a68b47129bd38ef8aa039360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: 2
+  baseGatherDelay: 0.5
+  gatherDelayReducer: 0.025
+  animationType: 0
+  overlays:
+  - {fileID: 974011658685246745, guid: 00f2750c533ecb5479eb0ef1d4058ea7, type: 3}
+  - {fileID: 8387089203559305313, guid: 00f2750c533ecb5479eb0ef1d4058ea7, type: 3}
+  - {fileID: -2372101373379533029, guid: 00f2750c533ecb5479eb0ef1d4058ea7, type: 3}
+  - {fileID: -9180570886995354165, guid: 00f2750c533ecb5479eb0ef1d4058ea7, type: 3}
+  - {fileID: -1320979192604732138, guid: 00f2750c533ecb5479eb0ef1d4058ea7, type: 3}
+  - {fileID: 7437924813129655166, guid: 00f2750c533ecb5479eb0ef1d4058ea7, type: 3}
+  maxFallRotation: 0

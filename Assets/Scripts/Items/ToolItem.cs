@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ToolItem : SimpleItem
 {
@@ -8,9 +9,11 @@ public class ToolItem : SimpleItem
     public ToolTarget target;
     [SerializeField] private int consumedDurability = 25;
     [SerializeField] private int repairedDurability = 50;
+    [SerializeField] private int animationRotations;
 
     private int _durability;
     private PlayerInventory _inventory;
+    private bool _animationPlaying;
 
     protected override void Start()
     {
@@ -39,11 +42,49 @@ public class ToolItem : SimpleItem
         }
     }
 
+    public void StartAnimation()
+    {
+        _animationPlaying = true;
+        StartCoroutine(PlayAnimationInternal());
+    }
+
+    private IEnumerator PlayAnimationInternal()
+    {
+        while (true)
+        {
+            for (var i = 0; i < animationRotations; ++i)
+            {
+                transform.Rotate(0f, 0f, 2f);
+                yield return new WaitForSeconds(0.01f);
+            }
+
+            for (var i = 0; i < animationRotations; ++i)
+            {
+                transform.Rotate(0f, 0f, -2f);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+    }
+
+    public void StopAnimation()
+    {
+        _animationPlaying = false;
+        StopAllCoroutines();
+    }
+
     public override string BuildTooltip()
     {
         var baseTooltip = base.BuildTooltip();
         var durabilityPercent = _durability * 100 / initialDurability;
         return $"{baseTooltip}\n{durabilityPercent}% durability";
+    }
+
+    protected override void Update()
+    {
+        if (!_animationPlaying)
+        {
+            base.Update();
+        }
     }
 }
 

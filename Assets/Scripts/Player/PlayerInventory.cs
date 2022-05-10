@@ -28,13 +28,15 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private GameObject tooltipBox;
     [SerializeField] private Text itemNameText;
     [SerializeField] private Text itemTooltipText;
-    [SerializeField] private GameObject testItem;
+    [SerializeField] private GameObject[] startupItems;
 
     private readonly List<Item> _items = new List<Item>();
     private int _selectedItemSlot = 1;
     private Item _selectedItem;
     private Transform _playerTransform;
     private bool _tooltipShown;
+    
+    public bool BlockSelection { private get; set; }
 
     #endregion
 
@@ -49,8 +51,13 @@ public class PlayerInventory : MonoBehaviour
         
         tooltipBox.SetActive(false);
         
-        var clone = Instantiate(testItem);
-        Insert(clone.GetComponent<Item>());
+        foreach (var startupItem in startupItems)
+        {
+            var clone = Instantiate(startupItem);
+            var item = clone.GetComponent<Item>();
+            item.OnDeselected();
+            Insert(item);
+        }
         
         SelectItem(1);
     }
@@ -180,6 +187,8 @@ public class PlayerInventory : MonoBehaviour
 
     public void SelectItem(int slot)
     {
+        if (BlockSelection) return;
+        
         HideTooltip();
         
         if (_selectedItem != null)
@@ -198,6 +207,8 @@ public class PlayerInventory : MonoBehaviour
 
     private void SelectWithKeyboard()
     {
+        if (BlockSelection) return;
+        
         for (var i = 1; i <= SlotSelectBindings.Count; ++i)
         {
             var binding = SlotSelectBindings[i - 1];

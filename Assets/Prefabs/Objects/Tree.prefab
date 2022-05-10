@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6226528335105750159}
   - component: {fileID: -5713326546528411535}
   - component: {fileID: 7836806195338274156}
+  - component: {fileID: 221015537425663564}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -109,3 +110,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &221015537425663564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6752589934140906853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d49b358a68b47129bd38ef8aa039360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: 1
+  baseGatherDelay: 1
+  gatherDelayReducer: 0.05
+  animationType: 1
+  overlays: []
+  maxFallRotation: 90

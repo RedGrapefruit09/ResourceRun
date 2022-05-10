@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b41b4bf921449cfad0a7f09e77d6c2d, type: 3}
   m_Name: Bushes
   m_EditorClassIdentifier: 
-  groupName: Bushes
   basePrefab: {fileID: 6752589934140906853, guid: e73442761b448eb4e9caa808b1e37918, type: 3}
   frequency: 20
   offset: {x: 0, y: 0, z: -0.5}
@@ -20,9 +19,3 @@ MonoBehaviour:
   - weight: 1
     sprite: {fileID: 21300000, guid: c67f8d1c76023b442b2942d47a7ba886, type: 3}
     colliderSize: {x: 1, y: 1}
-  - weight: 1
-    sprite: {fileID: 21300000, guid: 9a362bd9b6b4d044a9ba3d8fe6705da0, type: 3}
-    colliderSize: {x: 0.75, y: 0.75}
-  - weight: 1
-    sprite: {fileID: 21300000, guid: 71d5646dc59aaca4e8c79d101d879a5f, type: 3}
-    colliderSize: {x: 0.5, y: 0.5}

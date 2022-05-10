@@ -38,6 +38,17 @@ public class Gatherable : MonoBehaviour
 
             Destroy(overlayObject);
         }
+
+        if (animationType == GatherableAnimationType.Fall)
+        {
+            Destroy(GetComponent<BoxCollider2D>());
+            
+            while (Mathf.Abs(transform.rotation.eulerAngles.z - maxFallRotation) > 0.1f)
+            {
+                transform.Rotate(0f, 0f, 0.4f);
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
         
         tool.Use();
 

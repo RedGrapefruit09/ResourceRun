@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8931808032263607088}
   - component: {fileID: 8931808032263607095}
-  - component: {fileID: 8931808032263607094}
+  - component: {fileID: 3684867442715182281}
   m_Layer: 0
   m_Name: Bronze Pickaxe
   m_TagString: Untagged
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8931808032263607094
+--- !u!114 &3684867442715182281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,9 +92,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8931808032263607089}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09b361c1c0ad41cf977914d5f57bef4e, type: 3}
+  m_Script: {fileID: 11500000, guid: d8e3a9354fe148008a381b5483faae08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCount: 1
+  maxCount: 5
   label: Bronze Pickaxe
-  tooltip: A first-level tool for mining any ore
+  tooltip: A first-grade pickaxe out of bronze.
+  initialDurability: 0
+  efficiency: 5
+  target: 0
+  consumedDurability: 25
+  repairedDurability: 50

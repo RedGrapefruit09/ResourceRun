@@ -29,7 +29,7 @@ public class WorldGenerator : MonoBehaviour
             step.generator = this;
         }
         
-        Log.Info("Initialized world generator");
+        Debug.Log("Initialized world generator");
         
         GenerateWorld();
     }
@@ -49,7 +49,7 @@ public class WorldGenerator : MonoBehaviour
             Destroy(pair.Value);
         }
         
-        Log.Info($"Deleted {_positionalObjects.Count} positional objects");
+        Debug.Log($"Deleted {_positionalObjects.Count} positional objects");
         _positionalObjects.Clear();
 
         foreach (var obj in _objects)
@@ -57,7 +57,7 @@ public class WorldGenerator : MonoBehaviour
             Destroy(obj);
         }
         
-        Log.Info($"Deleted {_objects.Count} objects");
+        Debug.Log($"Deleted {_objects.Count} objects");
         _objects.Clear();
         
         foreach (var step in steps)
@@ -65,7 +65,7 @@ public class WorldGenerator : MonoBehaviour
             step.Clear();
         }
         
-        Log.Info("World generation has been cleared");
+        Debug.Log("World generation has been cleared");
     }
     
     /// <summary>
@@ -79,13 +79,13 @@ public class WorldGenerator : MonoBehaviour
 
         if (worldWidth % 2 != 0)
         {
-            Log.Warning($"Non-power-of-two world widths aren't supported. {worldWidth} will be converted to {worldWidth + 1}");
+            Debug.LogWarning($"Non-power-of-two world widths aren't supported. {worldWidth} will be converted to {worldWidth + 1}");
             worldWidth++;
         }
 
         if (worldHeight % 2 != 0)
         {
-            Log.Warning($"Non-power-of-two world heights aren't supported. {worldHeight} will be converted to {worldHeight + 1}");
+            Debug.LogWarning($"Non-power-of-two world heights aren't supported. {worldHeight} will be converted to {worldHeight + 1}");
             worldHeight++;
         }
         
@@ -94,7 +94,7 @@ public class WorldGenerator : MonoBehaviour
             step.Generate();
         }
         
-        Log.Info($"Generated world: {worldWidth}x{worldHeight}, {season.seasonName}");
+        Debug.Log($"Generated world: {worldWidth}x{worldHeight}, {season.seasonName}");
     }
 
     /// <summary>
@@ -135,11 +135,11 @@ public class WorldGenerator : MonoBehaviour
         {
             _positionalObjects.Remove(vector);
             Destroy(obj);
-            Log.Info($"Deleted a positional object at x={x}; y={y}");
+            Debug.Log($"Deleted a positional object at x={x}; y={y}");
             return;
         }
         
-        Log.Warning($"Tried to delete a non-existing positional object at x={x}; y={y}");
+        Debug.LogWarning($"Tried to delete a non-existing positional object at x={x}; y={y}");
     }
 
     /// <summary>

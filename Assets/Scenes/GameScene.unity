@@ -280,7 +280,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -713,6 +713,76 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &134201242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134201243}
+  - component: {fileID: 134201245}
+  - component: {fileID: 134201244}
+  m_Layer: 0
+  m_Name: RightMineTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &134201243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134201242}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1399999694}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &134201244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134201242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac67ec3af424e2783ba5e3bf1d6c5f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &134201245
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134201242}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.58445275, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5390231, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &138348908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1096,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -1233,7 +1303,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -1365,7 +1435,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -1536,7 +1606,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -1747,7 +1817,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -1954,7 +2024,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -2730,7 +2800,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -2786,6 +2856,76 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &992110593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 992110594}
+  - component: {fileID: 992110596}
+  - component: {fileID: 992110595}
+  m_Layer: 0
+  m_Name: LeftMineTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &992110594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992110593}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1399999694}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &992110595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992110593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac67ec3af424e2783ba5e3bf1d6c5f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &992110596
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992110593}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.609148, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.57194996, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &993259242
 GameObject:
   m_ObjectHideFlags: 0
@@ -3093,7 +3233,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -3300,7 +3440,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -3325,6 +3465,8 @@ GameObject:
   - component: {fileID: 1399999697}
   - component: {fileID: 1399999696}
   - component: {fileID: 1399999698}
+  - component: {fileID: 1399999700}
+  - component: {fileID: 1399999699}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3344,6 +3486,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 519420032}
+  - {fileID: 992110594}
+  - {fileID: 134201243}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3465,6 +3609,68 @@ MonoBehaviour:
   staminaConsumption: 7
   staminaRegeneration: 3
   staminaBar: {fileID: 2093605067}
+--- !u!114 &1399999699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399999693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef39dc1cb54f4401a7e23f4574fbdfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftMineTrigger: {fileID: 992110595}
+  rightMineTrigger: {fileID: 134201244}
+--- !u!114 &1399999700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399999693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fc03c4266148918167ab591a22dc4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - itemImage: {fileID: 395721528}
+    selectorImage: {fileID: 527444567}
+    amountText: {fileID: 1587061899}
+  - itemImage: {fileID: 1467085999}
+    selectorImage: {fileID: 1975741436}
+    amountText: {fileID: 1469865987}
+  - itemImage: {fileID: 1130566954}
+    selectorImage: {fileID: 485673257}
+    amountText: {fileID: 1622823592}
+  - itemImage: {fileID: 74499691}
+    selectorImage: {fileID: 993259244}
+    amountText: {fileID: 1415138137}
+  - itemImage: {fileID: 1364181098}
+    selectorImage: {fileID: 138348910}
+    amountText: {fileID: 67359981}
+  - itemImage: {fileID: 957188615}
+    selectorImage: {fileID: 1453290414}
+    amountText: {fileID: 2058764591}
+  - itemImage: {fileID: 7329829}
+    selectorImage: {fileID: 568455750}
+    amountText: {fileID: 230195852}
+  - itemImage: {fileID: 1884293775}
+    selectorImage: {fileID: 1212983480}
+    amountText: {fileID: 1913468818}
+  - itemImage: {fileID: 430749214}
+    selectorImage: {fileID: 278837988}
+    amountText: {fileID: 1701823405}
+  - itemImage: {fileID: 1637665585}
+    selectorImage: {fileID: 2006635530}
+    amountText: {fileID: 421629727}
+  droppedItemPrefab: {fileID: 7118710301252497892, guid: 930532f0f5573dd488ef6735c5cabc58, type: 3}
+  tooltipBox: {fileID: 1438264385}
+  itemNameText: {fileID: 725082520}
+  itemTooltipText: {fileID: 814689577}
+  testItem: {fileID: 8931808032263607089, guid: 379c8d1954d043e40a2630472acd1bb0, type: 3}
 --- !u!1 &1415138135
 GameObject:
   m_ObjectHideFlags: 0
@@ -3816,7 +4022,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -4027,7 +4233,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -4159,7 +4365,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -4456,85 +4662,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1611286726
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1611286727}
-  - component: {fileID: 1611286728}
-  m_Layer: 0
-  m_Name: Inventory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1611286727
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1611286726}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1611286728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1611286726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fc03c4266148918167ab591a22dc4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slots:
-  - itemImage: {fileID: 395721528}
-    selectorImage: {fileID: 527444567}
-    amountText: {fileID: 1587061899}
-  - itemImage: {fileID: 1467085999}
-    selectorImage: {fileID: 1975741436}
-    amountText: {fileID: 1469865987}
-  - itemImage: {fileID: 1130566954}
-    selectorImage: {fileID: 485673257}
-    amountText: {fileID: 1622823592}
-  - itemImage: {fileID: 74499691}
-    selectorImage: {fileID: 993259244}
-    amountText: {fileID: 1415138137}
-  - itemImage: {fileID: 1364181098}
-    selectorImage: {fileID: 138348910}
-    amountText: {fileID: 67359981}
-  - itemImage: {fileID: 957188615}
-    selectorImage: {fileID: 1453290414}
-    amountText: {fileID: 2058764591}
-  - itemImage: {fileID: 7329829}
-    selectorImage: {fileID: 568455750}
-    amountText: {fileID: 230195852}
-  - itemImage: {fileID: 1884293775}
-    selectorImage: {fileID: 1212983480}
-    amountText: {fileID: 1913468818}
-  - itemImage: {fileID: 430749214}
-    selectorImage: {fileID: 278837988}
-    amountText: {fileID: 1701823405}
-  - itemImage: {fileID: 1637665585}
-    selectorImage: {fileID: 2006635530}
-    amountText: {fileID: 421629727}
-  droppedItemPrefab: {fileID: 7118710301252497892, guid: 930532f0f5573dd488ef6735c5cabc58, type: 3}
-  tooltipBox: {fileID: 1438264385}
-  itemNameText: {fileID: 725082520}
-  itemTooltipText: {fileID: 814689577}
-  testItem: {fileID: 8931808032263607089, guid: 379c8d1954d043e40a2630472acd1bb0, type: 3}
 --- !u!1 &1622823590
 GameObject:
   m_ObjectHideFlags: 0
@@ -4734,7 +4861,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -4866,7 +4993,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -5116,7 +5243,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -5287,7 +5414,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3
@@ -5531,7 +5658,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1611286728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: SelectItem
         m_Mode: 3

@@ -7,7 +7,7 @@ public class SimpleItem : Item
     private PlayerMovement _playerMovement;
     private SpriteRenderer _spriteRenderer;
 
-    private void Start()
+    protected virtual void Start()
     {
         _playerMovement = FindObjectOfType<PlayerMovement>();
         _spriteRenderer = GetComponent<SpriteRenderer>();

@@ -2,6 +2,7 @@
 
 public abstract class Item : MonoBehaviour
 {
+    [Header("Item Settings")]
     public int maxCount;
     public string label;
 

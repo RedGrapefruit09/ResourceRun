@@ -3,27 +3,19 @@ using UnityEngine;
 
 public class DroppedItem : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float despawnTime;
     
-    [HideInInspector] public Item originalItem;
+    public Item OriginalItem { private get; set; }
     
-    private Inventory _inventory;
+    private PlayerInventory _inventory;
 
     private void Start()
     {
-        _inventory = FindObjectOfType<Inventory>();
-        GetComponent<SpriteRenderer>().sprite = originalItem.GetComponent<SpriteRenderer>().sprite;
-        //StartCoroutine(Rotate());
+        _inventory = FindObjectOfType<PlayerInventory>();
+        GetComponent<SpriteRenderer>().sprite = OriginalItem.GetComponent<SpriteRenderer>().sprite;
+        
         StartCoroutine(Rescale());
-    }
-
-    private IEnumerator Rotate()
-    {
-        while (true)
-        {
-            transform.Rotate(0f, 0f, rotationSpeed);
-            yield return new WaitForSeconds(0.001f);
-        }
+        StartCoroutine(Despawn());
     }
 
     private IEnumerator Rescale()
@@ -45,11 +37,21 @@ public class DroppedItem : MonoBehaviour
             yield return new WaitForSeconds(0.001f);
         }
     }
+
+    private IEnumerator Despawn()
+    {
+        yield return new WaitForSeconds(despawnTime);
+        Destroy(OriginalItem);
+        Destroy(gameObject);
+    }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
-        
-        Destroy(gameObject);
+
+        if (_inventory.Insert(OriginalItem))
+        {
+            Destroy(gameObject);
+        }
     }
 }

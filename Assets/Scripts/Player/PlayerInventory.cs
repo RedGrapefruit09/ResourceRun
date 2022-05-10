@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviour
 {
+    #region Data & State
+    
     private static readonly List<KeyCode> SlotSelectBindings = new List<KeyCode>
     {
         KeyCode.Alpha0,
@@ -18,6 +20,8 @@ public class Inventory : MonoBehaviour
         KeyCode.Alpha8,
         KeyCode.Alpha9
     };
+    
+    private const int InventorySize = 10;
 
     [SerializeField] private InventoryUISlot[] slots;
     [SerializeField] private GameObject droppedItemPrefab;
@@ -31,7 +35,8 @@ public class Inventory : MonoBehaviour
     private Item _selectedItem;
     private Transform _playerTransform;
     private bool _tooltipShown;
-    private const int InventorySize = 10;
+
+    #endregion
 
     private void Start()
     {
@@ -50,6 +55,8 @@ public class Inventory : MonoBehaviour
         SelectItem(1);
     }
 
+    #region API
+
     public Item Get(int slot)
     {
         return IsSlotInvalid(slot) ? null : _items[slot - 1];
@@ -63,7 +70,7 @@ public class Inventory : MonoBehaviour
         UpdateUI();
     }
     
-    public void Insert(Item insertedItem)
+    public bool Insert(Item insertedItem)
     {
         for (var i = 1; i <= InventorySize; ++i)
         {
@@ -73,7 +80,7 @@ public class Inventory : MonoBehaviour
             if (item == null)
             {
                 Set(i, insertedItem);
-                return;
+                return true;
             }
             
             // The two items aren't of the same type
@@ -88,10 +95,63 @@ public class Inventory : MonoBehaviour
             item.Increment(insertedItem.Amount);
             UpdateUI();
             Destroy(insertedItem.gameObject);
-            return;
+            return true;
+        }
+
+        return false;
+    }
+
+    public void RemoveItem(Item item)
+    {
+        var slot = _items.IndexOf(item);
+        Set(slot, null);
+        Destroy(item);
+    }
+    
+    #endregion
+
+    #region Tooltips
+
+    private void HideTooltip()
+    {
+        tooltipBox.SetActive(false);
+        _tooltipShown = false;
+    }
+
+    private void ShowTooltip()
+    {
+        if (_selectedItem == null) return;
+        
+        _tooltipShown = true;
+        tooltipBox.SetActive(true);
+        itemNameText.text = _selectedItem.label;
+        itemTooltipText.text = _selectedItem.BuildTooltip();
+    }
+
+    private void UpdateTooltipUI()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (_tooltipShown)
+            {
+                HideTooltip();
+            }
+            else
+            {
+                ShowTooltip();
+            }
+        }
+
+        if (_tooltipShown && _selectedItem != null)
+        {
+            itemTooltipText.text = _selectedItem.BuildTooltip();
         }
     }
     
+    #endregion
+
+    #region Item Operations
+
     public void SelectItem(int slot)
     {
         HideTooltip();
@@ -112,21 +172,33 @@ public class Inventory : MonoBehaviour
         UpdateUI();
     }
 
-    private void HideTooltip()
+    private void SelectWithKeyboard()
     {
-        tooltipBox.SetActive(false);
-        _tooltipShown = false;
-    }
+        for (var i = 1; i <= SlotSelectBindings.Count; ++i)
+        {
+            var binding = SlotSelectBindings[i - 1];
 
-    private void ShowTooltip()
-    {
-        if (_selectedItem == null) return;
-        
-        _tooltipShown = true;
-        tooltipBox.SetActive(true);
-        itemNameText.text = _selectedItem.label;
-        itemTooltipText.text = _selectedItem.BuildTooltip();
+            if (Input.GetKeyDown(binding))
+            {
+                SelectItem(i);
+            }
+        }
     }
+    
+    private void DropItem()
+    {
+        var pos = new Vector3(_playerTransform.position.x, _playerTransform.position.y + 1f, 0f);
+        var clone = Instantiate(droppedItemPrefab, pos, Quaternion.identity);
+        clone.GetComponent<DroppedItem>().OriginalItem = _selectedItem;
+            
+        _selectedItem.OnDeselected();
+        _selectedItem = null;
+        Set(_selectedItemSlot, null);
+    }
+    
+    #endregion
+
+    #region Updates
 
     private void UpdateUI()
     {
@@ -153,57 +225,27 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        for (var i = 1; i <= SlotSelectBindings.Count; ++i)
-        {
-            var binding = SlotSelectBindings[i - 1];
-
-            if (Input.GetKeyDown(binding))
-            {
-                SelectItem(i);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q) && _selectedItem != null)
-        {
-            var pos = new Vector3(_playerTransform.position.x, _playerTransform.position.y + 1f, 0f);
-            var clone = Instantiate(droppedItemPrefab, pos, Quaternion.identity);
-            clone.GetComponent<DroppedItem>().originalItem = _selectedItem;
-            
-            _selectedItem.OnDeselected();
-            Set(_selectedItemSlot, null);
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (_tooltipShown)
-            {
-                HideTooltip();
-            }
-            else
-            {
-                ShowTooltip();
-            }
-        }
-
-        if (_tooltipShown && _selectedItem != null)
-        {
-            itemTooltipText.text = _selectedItem.BuildTooltip();
-        }
+        _selectedItem = Get(_selectedItemSlot);
+        SelectWithKeyboard();
+        if (Input.GetKeyDown(KeyCode.Q) && _selectedItem != null) DropItem();
+        UpdateTooltipUI();
     }
+    
+    #endregion
     
     private static bool IsSlotInvalid(int slot)
     {
         if (slot > 0 && slot <= InventorySize) return false;
         
-        Log.Error($"Tried to get/set an Item to/from an invalid slot: {slot}");
+        Debug.LogError($"Tried to get/set an Item to/from an invalid slot: {slot}");
         return true;
     }
-}
-
-[Serializable]
-public struct InventoryUISlot
-{
-    public Image itemImage;
-    public Image selectorImage;
-    public Text amountText;
+    
+    [Serializable]
+    public struct InventoryUISlot
+    {
+        public Image itemImage;
+        public Image selectorImage;
+        public Text amountText;
+    }
 }

@@ -36,7 +36,7 @@ public class PlayerGathering : MonoBehaviour
         _movement.Frozen = true;
         _inventory.BlockSelection = true;
         
-        if (tool.target == ToolTarget.Trees)
+        if (tool.target == ToolTarget.Trees && gatherable.target == ToolTarget.Trees)
         {
             var offsetPosition = _movement.Facing == PlayerFacing.Right ? Vector3.left : Vector3.right;
             yield return FloatTowards(transform.position + offsetPosition * 0.75f);

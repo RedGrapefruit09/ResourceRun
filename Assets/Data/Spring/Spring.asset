@@ -17,12 +17,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2a3105b5ef0e7154ea62b7f01cb6defc, type: 2}
   - {fileID: 11400000, guid: 57f414abb8e64e94c9dafd4a86136491, type: 2}
   - {fileID: 11400000, guid: df104e5da4f900442af5424e9d804530, type: 2}
-  groundCenterTile: {fileID: 11400000, guid: 6b932b72395daaf47b6ee469ccbd6e6a, type: 2}
-  groundRightTile: {fileID: 11400000, guid: 5c84fbab57c10a840899f5c32c4def18, type: 2}
-  groundLeftTile: {fileID: 11400000, guid: 258200ef9540abc4598a81e0970adb51, type: 2}
-  groundTopTile: {fileID: 11400000, guid: e34e0aad7825ddc4db7b222ee94192b7, type: 2}
-  groundTopRightTile: {fileID: 11400000, guid: d2b9fdde8e5bc00459d5aa48fe6e7a68, type: 2}
-  groundTopLeftTile: {fileID: 11400000, guid: af413cbb17a74094f9eff2eae522951f, type: 2}
-  groundBottomTile: {fileID: 11400000, guid: 502d792d8c7698249b88cfb403db7576, type: 2}
-  groundBottomRightTile: {fileID: 11400000, guid: 97c3ff331024099409d4e5cacf611047, type: 2}
-  groundBottomLeftTile: {fileID: 11400000, guid: 580beadf7038453449748bd51b3eadc5, type: 2}
+  groundCenterTile: {fileID: 11400000, guid: 07cab5896c77c0d4583f1d4fba55d0db, type: 2}
+  groundRightTile: {fileID: 11400000, guid: 8cf90c308d141e94b9d6d5a78071a36d, type: 2}
+  groundLeftTile: {fileID: 11400000, guid: e4426d1aeef0f324b918e9282533c031, type: 2}
+  groundTopTile: {fileID: 11400000, guid: 05a837f05294f104db10a9e1956c31fb, type: 2}
+  groundTopRightTile: {fileID: 11400000, guid: 937caa2d7b48b664295f0bfb99725fc5, type: 2}
+  groundTopLeftTile: {fileID: 11400000, guid: 2038b18a3159b7c4ca1d1117a0855c16, type: 2}
+  groundBottomTile: {fileID: 11400000, guid: 2e458e11d26024343949787b59cd5d75, type: 2}
+  groundBottomRightTile: {fileID: 11400000, guid: b560d410f795eb8409912f97f2ff32e4, type: 2}
+  groundBottomLeftTile: {fileID: 11400000, guid: a9bd9bb34e8359143ac8ba83baba3d21, type: 2}
+  groundTopAloneTile: {fileID: 11400000, guid: 46edeb3fc95453049ba6a0bba23c51e8, type: 2}
+  groundBottomAloneTile: {fileID: 11400000, guid: 7a5b4835b07404546a352fd94f887b5a, type: 2}
+  groundRightAloneTile: {fileID: 11400000, guid: 5f3f22285195b7a4fbce29b7b5f3d449, type: 2}
+  groundLeftAloneTile: {fileID: 11400000, guid: e16dc0ea1eb1a3343a123e3efbfa01a8, type: 2}

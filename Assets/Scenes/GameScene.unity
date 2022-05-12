@@ -2918,6 +2918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1319673919}
   - component: {fileID: 1319673920}
+  - component: {fileID: 1319673921}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -2951,6 +2952,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f077e9fac4e64f5e84228dc3c3453322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1319673921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319673918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00415cb491e240918012234cf340adac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTilemap: {fileID: 766318539}
+  delay: 0.1
 --- !u!1 &1364181096
 GameObject:
   m_ObjectHideFlags: 0

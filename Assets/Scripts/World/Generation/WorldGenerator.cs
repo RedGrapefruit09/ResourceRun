@@ -21,9 +21,17 @@ public class WorldGenerator : MonoBehaviour
 
     private readonly Dictionary<Vector2Int, GameObject> _positionalObjects = new Dictionary<Vector2Int, GameObject>();
     private readonly List<GameObject> _objects = new List<GameObject>();
+    private WorldFade _fade;
+    
+    public BoxCollider2D TopWorldBorder { get; set; }
+    public BoxCollider2D BottomWorldBorder { get; set; }
+    public BoxCollider2D RightWorldBorder { get; set; }
+    public BoxCollider2D LeftWorldBorder { get; set; }
 
     private void Start()
     {
+        _fade = FindObjectOfType<WorldFade>();
+        
         foreach (var step in steps)
         {
             step.generator = this;
@@ -75,6 +83,8 @@ public class WorldGenerator : MonoBehaviour
     /// </summary>
     private void GenerateWorld()
     {
+        _fade.StopFade();
+        
         ClearWorld();
 
         if (worldWidth % 2 != 0)
@@ -95,6 +105,8 @@ public class WorldGenerator : MonoBehaviour
         }
         
         Debug.Log($"Generated world: {worldWidth}x{worldHeight}, {season.seasonName}");
+        
+        _fade.StartFade();
     }
 
     /// <summary>
@@ -106,19 +118,6 @@ public class WorldGenerator : MonoBehaviour
     public void AddPositionalObject(int x, int y, GameObject obj)
     {
         _positionalObjects.Add(new Vector2Int(x, y), obj);
-    }
-
-    /// <summary>
-    /// Queries the generator's internal registry to see if a positional object exists (is registered)
-    /// at the given grid position.
-    /// </summary>
-    /// <param name="x">The grid X position</param>
-    /// <param name="y">The grid Y position</param>
-    /// <returns>A boolean representing whether the positional object is present</returns>
-    public bool PositionalObjectExistsAt(int x, int y)
-    {
-        var vector = new Vector2Int(x, y);
-        return _positionalObjects.Any(pair => pair.Key == vector);
     }
 
     /// <summary>
@@ -136,10 +135,7 @@ public class WorldGenerator : MonoBehaviour
             _positionalObjects.Remove(vector);
             Destroy(obj);
             Debug.Log($"Deleted a positional object at x={x}; y={y}");
-            return;
         }
-        
-        Debug.LogWarning($"Tried to delete a non-existing positional object at x={x}; y={y}");
     }
 
     /// <summary>

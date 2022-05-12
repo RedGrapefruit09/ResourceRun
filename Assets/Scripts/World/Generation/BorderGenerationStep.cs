@@ -12,25 +12,25 @@ public class BorderGenerationStep : GenerationStep
     {
         var borderParentObject = new GameObject { name = "World Borders" };
         
-        CreateBorder(
+        generator.BottomWorldBorder = CreateBorder(
             borderParentObject,
             new Vector2(0f, -(generator.worldHeight / 2f) - 0.5f),
             new Vector2(generator.worldWidth, 1f),
             "Bottom World Border");
         
-        CreateBorder(
+        generator.TopWorldBorder = CreateBorder(
             borderParentObject,
             new Vector2(0f, generator.worldHeight / 2f + 0.5f),
             new Vector2(generator.worldWidth, 1f),
             "Top World Border");
         
-        CreateBorder(
+        generator.LeftWorldBorder = CreateBorder(
             borderParentObject,
             new Vector2(-(generator.worldWidth / 2f) - 0.5f, 0f),
             new Vector2(1f, generator.worldHeight),
             "Left World Border");
         
-        CreateBorder(
+        generator.RightWorldBorder = CreateBorder(
             borderParentObject,
             new Vector2(generator.worldWidth / 2f + 0.5f, 0f),
             new Vector2(1f, generator.worldHeight),
@@ -38,8 +38,8 @@ public class BorderGenerationStep : GenerationStep
         
         generator.AddObject(borderParentObject);
     }
-    
-    private static void CreateBorder(GameObject borderParentObject, Vector2 pos, Vector2 size, string borderName)
+
+    private static BoxCollider2D CreateBorder(GameObject borderParentObject, Vector2 pos, Vector2 size, string borderName)
     {
         var obj = new GameObject
         {
@@ -53,5 +53,7 @@ public class BorderGenerationStep : GenerationStep
         
         var boxCollider = obj.AddComponent<BoxCollider2D>();
         boxCollider.size = size;
+
+        return boxCollider;
     }
 }

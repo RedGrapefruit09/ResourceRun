@@ -29,4 +29,8 @@ public class Season : ScriptableObject
     public Tile groundBottomTile;
     public Tile groundBottomRightTile;
     public Tile groundBottomLeftTile;
+    public Tile groundTopAloneTile;
+    public Tile groundBottomAloneTile;
+    public Tile groundRightAloneTile;
+    public Tile groundLeftAloneTile;
 }

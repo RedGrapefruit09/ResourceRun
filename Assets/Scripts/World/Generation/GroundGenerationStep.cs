@@ -18,10 +18,6 @@ public class GroundGenerationStep : GenerationStep
     
     public override void Generate()
     {
-        groundTilemap.transform.position = new Vector3(
-            -(generator.worldWidth / 2),
-            -(generator.worldHeight / 2));
-        
         for (var x = 0; x < generator.worldWidth; ++x)
         {
             for (var y = 0; y < generator.worldHeight; ++y)

@@ -58,7 +58,7 @@ public class ObjectGenerationStep : GenerationStep
                 if (r > group.frequency) continue;
 
                 var clone = Instantiate(group.basePrefab);
-                clone.transform.position = (Vector3)CalculateObjectPosition(x, y) + group.offset;
+                clone.transform.position = CalculateObjectPosition(x, y) + group.offset;
 
                 var variant = weightedBag.GetRandom();
                 clone.GetComponent<SpriteRenderer>().sprite = variant.sprite;

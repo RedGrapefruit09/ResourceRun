@@ -1,5 +1,9 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float staminaConsumption;
     [SerializeField] private float staminaRegeneration;
     [SerializeField] private Image staminaBar;
+    [Header("Other")]
+    [SerializeField] private Tilemap groundTilemap;
 
     public PlayerFacing Facing { get; private set; } = PlayerFacing.Right;
     public bool Frozen { private get; set; }
@@ -27,6 +33,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update()
+    {
+        HandleMovement();
+        HandleFall();
+    }
+
+    private void HandleMovement()
     {
         if (Frozen)
         {
@@ -60,6 +72,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         staminaBar.fillAmount = Mathf.Clamp(_stamina / maxStamina, 0f, 1f);
+    }
+
+    private void HandleFall()
+    {
+        var gridX = Mathf.RoundToInt(transform.position.x);
+        var gridY = Mathf.RoundToInt(transform.position.y);
+
+        if (groundTilemap.GetTile(new Vector3Int(gridX, gridY, 0)) == null)
+        {
+            Debug.Log($"The player stepped on a non-existing tile at x={gridX}; y={gridY}");
+            
+            Application.Quit();
+#if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+#endif
+        }
     }
 
     private void Move(float speed)

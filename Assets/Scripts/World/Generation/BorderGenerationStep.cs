@@ -14,25 +14,25 @@ public class BorderGenerationStep : GenerationStep
         
         generator.BottomWorldBorder = CreateBorder(
             borderParentObject,
-            new Vector2(0f, -(generator.worldHeight / 2f) - 0.5f),
+            new Vector2(generator.worldWidth / 2f, -0.5f),
             new Vector2(generator.worldWidth, 1f),
             "Bottom World Border");
         
         generator.TopWorldBorder = CreateBorder(
             borderParentObject,
-            new Vector2(0f, generator.worldHeight / 2f + 0.5f),
+            new Vector2(generator.worldWidth / 2f, generator.worldHeight + 0.5f),
             new Vector2(generator.worldWidth, 1f),
             "Top World Border");
         
         generator.LeftWorldBorder = CreateBorder(
             borderParentObject,
-            new Vector2(-(generator.worldWidth / 2f) - 0.5f, 0f),
+            new Vector2(-0.5f, generator.worldHeight / 2f),
             new Vector2(1f, generator.worldHeight),
             "Left World Border");
         
         generator.RightWorldBorder = CreateBorder(
             borderParentObject,
-            new Vector2(generator.worldWidth / 2f + 0.5f, 0f),
+            new Vector2(generator.worldWidth + 0.5f, generator.worldHeight / 2f),
             new Vector2(1f, generator.worldHeight),
             "Right World Border");
         

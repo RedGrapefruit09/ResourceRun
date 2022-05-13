@@ -3197,6 +3197,7 @@ MonoBehaviour:
   staminaConsumption: 7
   staminaRegeneration: 3
   staminaBar: {fileID: 2093605067}
+  groundTilemap: {fileID: 766318539}
 --- !u!114 &1399999699
 MonoBehaviour:
   m_ObjectHideFlags: 0

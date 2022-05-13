@@ -60,8 +60,6 @@ public class WorldFade : MonoBehaviour
             RecomputeTile(pos.x, pos.y + 1);
             RecomputeTile(pos.x, pos.y - 1);
         }
-        
-        ShrinkWorldBorders();
     }
 
     private void RecomputeTile(int x, int y)
@@ -163,21 +161,6 @@ public class WorldFade : MonoBehaviour
                 SetToTile(_generator.season.groundBottomTile);
             }
         }
-    }
-
-    private void ShrinkWorldBorders()
-    {
-        void ShrinkBorder(BoxCollider2D border, float xOffset, float yOffset, float xSizeReduction, float ySizeReduction)
-        {
-            border.offset = new Vector2(border.offset.x + xOffset, border.offset.y + yOffset);
-            border.size += Vector2.left * xSizeReduction;
-            border.size += Vector2.down * ySizeReduction;
-        }
-        
-        ShrinkBorder(_generator.TopWorldBorder, 0f, -1f, 2f, 0f);
-        ShrinkBorder(_generator.BottomWorldBorder, 0f, 1f, 2f, 0f);
-        ShrinkBorder(_generator.RightWorldBorder, -1f, 0f, 0f, 2f);
-        ShrinkBorder(_generator.LeftWorldBorder, 1f, 0f, 0f, 2f);
     }
 
     private WorldBoundaries GetWorldBoundaries()

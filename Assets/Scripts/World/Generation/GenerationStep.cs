@@ -23,10 +23,8 @@ public abstract class GenerationStep : MonoBehaviour
     /// <param name="x">The grid X position</param>
     /// <param name="y">The grid Y position</param>
     /// <returns>The converted <see cref="Vector2"/></returns>
-    protected Vector2 CalculateObjectPosition(int x, int y)
+    protected static Vector3 CalculateObjectPosition(int x, int y)
     {
-        return new Vector2(
-            x - generator.worldWidth / 2f + 0.5f,
-            y - generator.worldHeight / 2f + 0.5f);
+        return new Vector3(x + 0.5f, y + 0.5f);
     }
 }

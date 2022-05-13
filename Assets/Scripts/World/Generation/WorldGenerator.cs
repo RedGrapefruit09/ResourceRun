@@ -22,6 +22,7 @@ public class WorldGenerator : MonoBehaviour
     private readonly Dictionary<Vector2Int, GameObject> _positionalObjects = new Dictionary<Vector2Int, GameObject>();
     private readonly List<GameObject> _objects = new List<GameObject>();
     private WorldFade _fade;
+    private PlayerMovement _player;
     
     public BoxCollider2D TopWorldBorder { get; set; }
     public BoxCollider2D BottomWorldBorder { get; set; }
@@ -31,6 +32,7 @@ public class WorldGenerator : MonoBehaviour
     private void Start()
     {
         _fade = FindObjectOfType<WorldFade>();
+        _player = FindObjectOfType<PlayerMovement>();
         
         foreach (var step in steps)
         {
@@ -107,6 +109,7 @@ public class WorldGenerator : MonoBehaviour
         Debug.Log($"Generated world: {worldWidth}x{worldHeight}, {season.seasonName}");
         
         _fade.StartFade();
+        _player.transform.position = new Vector3(worldWidth / 2f, worldHeight / 2f);
     }
 
     /// <summary>

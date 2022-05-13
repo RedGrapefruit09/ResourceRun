@@ -7,10 +7,13 @@ public class Gatherable : MonoBehaviour
     public ToolTarget target;
     [SerializeField] private float baseGatherDelay = 1f;
     [SerializeField] private float gatherDelayReducer = 0.05f;
+    [SerializeField] private GameObject droppedItemPrefab;
     [Header("Animation Settings")]
     [SerializeField] private GatherableAnimationType animationType;
     [SerializeField] private Sprite[] overlays;
     [SerializeField] private float maxFallRotation;
+    
+    public GatherableLootTable LootTable { private get; set; }
 
     public IEnumerator Gather(ToolItem tool)
     {
@@ -51,6 +54,15 @@ public class Gatherable : MonoBehaviour
         }
         
         tool.Use();
+        
+        LootTable.Generate(
+            instantiateFunction: (obj, pos) => Instantiate(obj, pos, Quaternion.identity),
+            droppedItemPrefab,
+            basePos: transform.position,
+            minXSpread: -1.5f,
+            minYSpread: -1.5f,
+            maxXSpread: 1.5f,
+            maxYSpread: 1.5f);
 
         Destroy(gameObject);
     }

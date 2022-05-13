@@ -125,11 +125,6 @@ public class PlayerInventory : MonoBehaviour
 
     public Item GetSelectedItem()
     {
-        if (_selectedItem == null)
-        {
-            throw new NullReferenceException("Selected item is null");
-        }
-        
         return _selectedItem;
     }
     
@@ -260,7 +255,6 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        //_selectedItem = Get(_selectedItemSlot);
         SelectWithKeyboard();
         if (Input.GetKeyDown(KeyCode.Q) && _selectedItem != null) DropItem();
         UpdateUI();

@@ -6,7 +6,7 @@ using UnityEngine;
 /// An <see cref="ObjectGroup"/> is a <see cref="ScriptableObject"/> that represents a group of objects with
 /// shared properties. For example, ores, trees or bushes.
 /// </summary>
-[CreateAssetMenu(fileName = "New Object Group", menuName = "World/Object Group")]
+[CreateAssetMenu(fileName = "New Object Group", menuName = "Game/Object Group")]
 public class ObjectGroup : ScriptableObject
 {
     [Tooltip("The shared prefab GameObject to act as a base for every object in this group")]
@@ -32,4 +32,6 @@ public class ObjectVariant
     public Sprite sprite;
     [Tooltip("The size of the BoxCollider2D of this variant. If a BoxCollider2D is not present on the prefab, this will simply be ignored")]
     public Vector2 colliderSize = Vector2.one;
+    [Tooltip("The loot table to be associated with the Gatherable. Leave as None (null) if not a Gatherable")]
+    public GatherableLootTable lootTable;
 }

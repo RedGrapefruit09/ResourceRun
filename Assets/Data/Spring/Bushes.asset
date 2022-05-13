@@ -19,3 +19,4 @@ MonoBehaviour:
   - weight: 1
     sprite: {fileID: 21300000, guid: c67f8d1c76023b442b2942d47a7ba886, type: 3}
     colliderSize: {x: 1, y: 1}
+    lootTable: {fileID: 11400000, guid: c5d5028a648c7aa4486ef0129ac0662f, type: 2}

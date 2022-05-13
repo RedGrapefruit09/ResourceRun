@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46251e0646444cc79798e326f31e1346, type: 3}
+  m_Name: Coal Ore Loot
+  m_EditorClassIdentifier: 
+  entries:
+  - prefab: {fileID: 2758141120911807757, guid: 08d70329bf1a97145af158a6ef5166a2, type: 3}
+    minAmount: 1
+    maxAmount: 5
+  - prefab: {fileID: 2758141120911807757, guid: 4c00a1a377b826b4e9b10e2f9acb3d38, type: 3}
+    minAmount: 1
+    maxAmount: 3

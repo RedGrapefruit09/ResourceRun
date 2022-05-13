@@ -6,7 +6,7 @@ public abstract class Item : MonoBehaviour
     public int maxCount;
     public string label;
 
-    public int Amount { get; private set; } = 1;
+    public int Amount { get; set; } = 1;
 
     public abstract void OnSelected();
 

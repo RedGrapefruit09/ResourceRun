@@ -10,7 +10,7 @@ using UnityEngine.Tilemaps;
 /// This <see cref="ScriptableObject"/> contains ground <see cref="Tile"/>s and <see cref="ObjectGroup"/>s bound
 /// to generate only in this <see cref="Season"/>.
 /// </summary>
-[CreateAssetMenu(fileName = "New Season", menuName = "World/Season")]
+[CreateAssetMenu(fileName = "New Season", menuName = "Game/Season")]
 public class Season : ScriptableObject
 {
     [Header("General Settings")]

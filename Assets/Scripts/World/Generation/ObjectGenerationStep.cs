@@ -67,6 +67,11 @@ public class ObjectGenerationStep : GenerationStep
                 {
                     boxCollider.size = variant.colliderSize;
                 }
+
+                if (clone.TryGetComponent<Gatherable>(out var gatherable))
+                {
+                    gatherable.LootTable = variant.lootTable;
+                }
                 
                 generator.AddPositionalObject(x, y, clone);
                 

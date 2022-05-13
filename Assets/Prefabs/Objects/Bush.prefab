@@ -125,6 +125,7 @@ MonoBehaviour:
   target: 2
   baseGatherDelay: 0.5
   gatherDelayReducer: 0.025
+  droppedItemPrefab: {fileID: 7118710301252497892, guid: 930532f0f5573dd488ef6735c5cabc58, type: 3}
   animationType: 0
   overlays:
   - {fileID: 974011658685246745, guid: 00f2750c533ecb5479eb0ef1d4058ea7, type: 3}

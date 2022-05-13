@@ -45,21 +45,23 @@
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\World\ObjectGroup.cs" />
      <Compile Include="Assets\Scripts\Items\SimpleItem.cs" />
+     <Compile Include="Assets\Scripts\World\WorldFade.cs" />
      <Compile Include="Assets\Scripts\Utilities\WeightedRandomBag.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerInventory.cs" />
-     <Compile Include="Assets\Scripts\Items\Gatherable.cs" />
+     <Compile Include="Assets\Scripts\Tools\Gatherable.cs" />
      <Compile Include="Assets\Scripts\World\Generation\BorderGenerationStep.cs" />
      <Compile Include="Assets\Scripts\Items\DroppedItem.cs" />
      <Compile Include="Assets\Scripts\World\Generation\WorldGenerator.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerTrigger.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerGathering.cs" />
      <Compile Include="Assets\Scripts\Utilities\FileLogger.cs" />
-     <Compile Include="Assets\Scripts\Items\ToolItem.cs" />
+     <Compile Include="Assets\Scripts\Tools\ToolItem.cs" />
      <Compile Include="Assets\Scripts\World\Generation\GenerationStep.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
      <Compile Include="Assets\Scripts\World\Generation\ObjectGenerationStep.cs" />
      <Compile Include="Assets\Scripts\World\Season.cs" />
-     <Compile Include="Assets\Scripts\World\WorldFade.cs" />
+     <Compile Include="Assets\Scripts\Items\ResourceItem.cs" />
+     <Compile Include="Assets\Scripts\Tools\GatherableLootTable.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

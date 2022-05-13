@@ -2965,7 +2965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 766318539}
-  delay: 0.1
+  delay: 0.2
 --- !u!1 &1364181096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3262,6 +3262,7 @@ MonoBehaviour:
   startupItems:
   - {fileID: 8931808032263607089, guid: 379c8d1954d043e40a2630472acd1bb0, type: 3}
   - {fileID: 8931808032263607089, guid: 176d186bd8f2b3749b40621665560888, type: 3}
+  - {fileID: 2758141120911807757, guid: cc37103cab160ea4daa96ab5a105c3f8, type: 3}
 --- !u!1 &1415138135
 GameObject:
   m_ObjectHideFlags: 0

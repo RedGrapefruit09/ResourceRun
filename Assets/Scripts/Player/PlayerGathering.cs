@@ -22,6 +22,8 @@ public class PlayerGathering : MonoBehaviour
         if (mineTrigger.Triggered && Input.GetKeyDown(KeyCode.G))
         {
             var selectedItem = _inventory.GetSelectedItem();
+            if (selectedItem == null) return;
+            
             var gatherable = mineTrigger.TriggerObject.GetComponent<Gatherable>();
 
             if (selectedItem is ToolItem tool && CompareTargets(tool.target, gatherable.target))

@@ -61,12 +61,12 @@ public class PlayerInventory : MonoBehaviour
 
     #region API
 
-    public Item Get(int slot)
+    public Item GetItem(int slot)
     {
         return IsSlotInvalid(slot) ? null : _items[slot - 1];
     }
 
-    public void Set(int slot, Item item)
+    public void SetItem(int slot, Item item)
     {
         if (IsSlotInvalid(slot)) return;
 
@@ -83,16 +83,16 @@ public class PlayerInventory : MonoBehaviour
         }
     }
     
-    public bool Insert(Item insertedItem)
+    public bool InsertItem(Item insertedItem)
     {
         for (var i = 1; i <= InventorySize; ++i)
         {
-            var item = Get(i);
+            var item = GetItem(i);
 
             // The slot is empty, so it can be filled with the inserted item
             if (item == null)
             {
-                Set(i, insertedItem);
+                SetItem(i, insertedItem);
                 Compress();
                 return true;
             }
@@ -115,13 +115,13 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
-    public void Extract(Item extractedItem, int amount)
+    public void ExtractItem(Item extractedItem, int amount)
     {
         Compress();
 
         for (var i = 1; i <= InventorySize; ++i)
         {
-            var item = Get(i);
+            var item = GetItem(i);
 
             if (item == null) continue;
             if (Item.Different(item, extractedItem)) continue;
@@ -130,19 +130,19 @@ public class PlayerInventory : MonoBehaviour
 
             if (item.Amount <= 0)
             {
-                Set(i, null);
+                SetItem(i, null);
                 Destroy(item.gameObject);
             }
         }
     }
 
-    public int CountItem(Item countedItem)
+    public int CountOfItem(Item countedItem)
     {
         var amount = 0;
 
         for (var i = 1; i <= InventorySize; ++i)
         {
-            var item = Get(i);
+            var item = GetItem(i);
 
             if (Item.Same(item, countedItem))
             {
@@ -152,37 +152,37 @@ public class PlayerInventory : MonoBehaviour
         
         return amount;
     }
+
+    private void ShiftBackFrom(int slot)
+    {
+        if (slot >= InventorySize) return;
+        
+        for (var i = slot + 1; i <= InventorySize; ++i)
+        {
+            var item = GetItem(i);
+            SetItem(i, null);
+            SetItem(i - 1, item);
+        }
+    }
     
     private void Compress()
     {
-        void BackShift(int slot)
-        {
-            if (slot >= InventorySize) return;
-            
-            for (var i = slot + 1; i <= InventorySize; ++i)
-            {
-                var item = Get(i);
-                Set(i, null);
-                Set(i - 1, item);
-            }
-        }
-        
         var encounters = new Dictionary<string, int>();
 
         for (var i = 1; i <= InventorySize; ++i)
         {
-            var item = Get(i);
+            var item = GetItem(i);
 
             if (item == null)
             {
-                BackShift(i);
+                ShiftBackFrom(i);
                 continue;
             }
 
             if (encounters.ContainsKey(item.label))
             {
                 var slot = encounters[item.label];
-                var sourceItem = Get(slot);
+                var sourceItem = GetItem(slot);
                 sourceItem.Increment(item.Amount);
                 RemoveItem(item);
             }
@@ -196,7 +196,7 @@ public class PlayerInventory : MonoBehaviour
     public void RemoveItem(Item item)
     {
         var slot = _items.IndexOf(item) + 1;
-        Set(slot, null);
+        SetItem(slot, null);
         Destroy(item.gameObject);
     }
 
@@ -269,7 +269,7 @@ public class PlayerInventory : MonoBehaviour
         }
         
         _selectedItemSlot = slot;
-        _selectedItem = Get(slot);
+        _selectedItem = GetItem(slot);
         
         if (_selectedItem != null)
         {
@@ -298,7 +298,7 @@ public class PlayerInventory : MonoBehaviour
         Item.Drop(droppedItemPrefab, pos, _selectedItem);   
         
         _selectedItem = null;
-        Set(_selectedItemSlot, null);
+        SetItem(_selectedItemSlot, null);
     }
     
     #endregion
@@ -309,7 +309,7 @@ public class PlayerInventory : MonoBehaviour
     {
         for (var i = 1; i <= InventorySize; ++i)
         {
-            var item = Get(i);
+            var item = GetItem(i);
             var slot = slots[i - 1];
 
             slot.selectorImage.gameObject.SetActive(i == _selectedItemSlot);

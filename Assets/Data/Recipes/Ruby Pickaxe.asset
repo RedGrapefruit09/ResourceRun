@@ -16,8 +16,8 @@ MonoBehaviour:
   outputItem: {fileID: 8931808032263607089, guid: a70e05d350b894844a26698926e8a617, type: 3}
   ingredients:
   - item: {fileID: 2758141120911807757, guid: 50371dff3cf679c48a02933e8b6681a8, type: 3}
-    requirement: 5
+    requirement: 30
   - item: {fileID: 2758141120911807757, guid: 08d70329bf1a97145af158a6ef5166a2, type: 3}
-    requirement: 10
+    requirement: 30
   - item: {fileID: 2758141120911807757, guid: 261ecda46fb9d7249a9f62e2aec59cf4, type: 3}
-    requirement: 3
+    requirement: 5

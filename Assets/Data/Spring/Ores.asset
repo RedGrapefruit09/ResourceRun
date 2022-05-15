@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Ores
   m_EditorClassIdentifier: 
   basePrefab: {fileID: 6752589934140906853, guid: a3170a0dd1cda204fb8bdd25895889ec, type: 3}
-  frequency: 75
+  frequency: 60
   offset: {x: 0, y: 0, z: -1}
+  occupiedPositions:
+  - {x: 0, y: 0}
   variants:
   - weight: 100
     sprite: {fileID: 21300000, guid: c09065636ab1eae44bc94a87d4d97c8a, type: 3}
@@ -28,15 +30,15 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: ac4f482c6fe007f4b8b7ee361873262e, type: 3}
     colliderSize: {x: 1, y: 1}
     lootTable: {fileID: 11400000, guid: d2bceab088e813f46a8c38dc6993a409, type: 2}
-  - weight: 15
+  - weight: 50
     sprite: {fileID: 21300000, guid: c0e9b93432a437a4f890ef8b48050f07, type: 3}
     colliderSize: {x: 1, y: 1}
     lootTable: {fileID: 11400000, guid: ec556159c8322b14587b59e63e7b47bd, type: 2}
-  - weight: 5
+  - weight: 40
     sprite: {fileID: 21300000, guid: 919e6146df1e4cd4b891340cf6421079, type: 3}
     colliderSize: {x: 1, y: 1}
     lootTable: {fileID: 11400000, guid: c8a987dee88c7c04d8ef4b94f293e3c6, type: 2}
-  - weight: 2
+  - weight: 30
     sprite: {fileID: 21300000, guid: 1f155dba4a696d24f90d4a019670e9d2, type: 3}
     colliderSize: {x: 1, y: 1}
     lootTable: {fileID: 11400000, guid: c5c07499b0e132d47a80b329c86a8e09, type: 2}

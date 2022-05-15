@@ -51,8 +51,12 @@ public class ObjectGenerationStep : GenerationStep
         {
             for (var y = excludedEdgeArea; y < generator.worldHeight - excludedEdgeArea; ++y)
             {
-                var gridPos = new Vector2Int(x, y);
-                if (IsPositionOccupied(gridPos)) continue;
+                var basePos = new Vector2Int(x, y);
+
+                var occupied = group.occupiedPositions
+                    .Select(offset => basePos + offset)
+                    .Any(IsPositionOccupied);
+                if (occupied) continue;
 
                 var r = Random.Range(0, 1001);
                 if (r > group.frequency) continue;
@@ -74,8 +78,12 @@ public class ObjectGenerationStep : GenerationStep
                 }
                 
                 generator.AddPositionalObject(x, y, clone);
-                
-                _occupiedPositions.Add(gridPos);
+
+                foreach (var offset in group.occupiedPositions)
+                {
+                    var pos = basePos + offset;
+                    _occupiedPositions.Add(pos);
+                }
             }
         }
     }

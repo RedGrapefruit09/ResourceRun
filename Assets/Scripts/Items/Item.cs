@@ -53,7 +53,7 @@ public abstract class Item : MonoBehaviour
     
     public static void CreateAndInsert(GameObject prefab, PlayerInventory inventory, int amount = 1)
     {
-        inventory.Insert(Create(prefab, amount));
+        inventory.InsertItem(Create(prefab, amount));
     }
 
     public static void Drop(GameObject droppedItemPrefab, Vector3 pos, Item item)

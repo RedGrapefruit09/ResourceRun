@@ -14,8 +14,10 @@ public class PlayerUpgrades : MonoBehaviour
     
     [Header("UI")]
     [SerializeField] private GameObject rootUIObject;
+    [SerializeField] private GameObject contentRootObject;
     [SerializeField] private Text outputNameText;
     [SerializeField] private Text upgradeButtonText;
+    [SerializeField] private Text issueText;
     [SerializeField] private IngredientUI[] ingredients;
 
     private PlayerInventory _inventory;
@@ -42,22 +44,38 @@ public class PlayerUpgrades : MonoBehaviour
         
         if (selectedItem == null)
         {
-            rootUIObject.SetActive(false);
+            DisplayIssue("You aren't holding an item!");
             return;
         }
 
         if (Item.Different(selectedItem, _previousSelectedItem))
         {
             var recipe = recipes.FirstOrDefault(recipe => Item.Same(recipe.inputItem.GetComponent<Item>(), selectedItem));
-            if (recipe == null) return;
+            
+            if (recipe == null)
+            {
+                DisplayIssue($"No recipes are available for a {selectedItem.label}");
+                return;
+            }
+            
             _currentRecipe = recipe;
         }
 
         _previousSelectedItem = selectedItem;
-        
+
         if (_currentRecipe == null) return;
         
+        issueText.gameObject.SetActive(false);
+        contentRootObject.SetActive(true);
+        
         SynchronizeData();
+    }
+
+    private void DisplayIssue(string issue)
+    {
+        contentRootObject.SetActive(false);
+        issueText.gameObject.SetActive(true);
+        issueText.text = issue;
     }
 
     private void SynchronizeData()
@@ -79,7 +97,7 @@ public class PlayerUpgrades : MonoBehaviour
 
             var ingredient = _currentRecipe.ingredients[i];
 
-            var count = _inventory.CountItem(ingredient.item.GetComponent<Item>());
+            var count = _inventory.CountOfItem(ingredient.item.GetComponent<Item>());
             if (count > ingredient.requirement) count = ingredient.requirement;
             
             Color color;
@@ -99,7 +117,7 @@ public class PlayerUpgrades : MonoBehaviour
     {
         var fulfilledIngredients =
             from ingredient in _currentRecipe.ingredients
-            let count = _inventory.CountItem(ingredient.item.GetComponent<Item>())
+            let count = _inventory.CountOfItem(ingredient.item.GetComponent<Item>())
             where count >= ingredient.requirement
             select ingredient;
 
@@ -118,7 +136,7 @@ public class PlayerUpgrades : MonoBehaviour
 
         foreach (var ingredient in _currentRecipe.ingredients)
         {
-            _inventory.Extract(ingredient.item.GetComponent<Item>(), ingredient.requirement);
+            _inventory.ExtractItem(ingredient.item.GetComponent<Item>(), ingredient.requirement);
         }
 
         Item.CreateAndInsert(_currentRecipe.outputItem, _inventory);

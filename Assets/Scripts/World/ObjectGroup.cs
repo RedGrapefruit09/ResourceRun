@@ -15,6 +15,9 @@ public class ObjectGroup : ScriptableObject
     public int frequency;
     [Tooltip("The shared positional offset of this ObjectGroup. This applies to world position, not grid position!")]
     public Vector3 offset;
+
+    public Vector2Int[] occupiedPositions;
+    
     [Tooltip("All ObjectVariants in this ObjectGroup")]
     public List<ObjectVariant> variants;
 }

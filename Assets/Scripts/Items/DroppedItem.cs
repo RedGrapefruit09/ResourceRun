@@ -51,7 +51,7 @@ public class DroppedItem : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Player")) return;
 
-        if (_inventory.Insert(OriginalItem))
+        if (_inventory.InsertItem(OriginalItem))
         {
             Destroy(gameObject);
         }

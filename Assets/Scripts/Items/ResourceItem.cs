@@ -4,10 +4,9 @@ public class ResourceItem : SimpleItem
 {
     [SerializeField] private int worth;
 
-    public override string BuildTooltip()
+    public override void BuildTooltip(ItemTooltip tooltip)
     {
-        var worthString = $"Worth {worth}$ of in-game currency";
-        var baseString = base.BuildTooltip();
-        return $"{baseString}\n{worthString}";
+        base.BuildTooltip(tooltip);
+        tooltip.Add($"Worth {worth}$ of in-game currency");
     }
 }

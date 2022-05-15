@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text;
 using UnityEngine;
 
 public class ToolItem : SimpleItem
@@ -72,11 +73,13 @@ public class ToolItem : SimpleItem
         StopAllCoroutines();
     }
 
-    public override string BuildTooltip()
+    public override void BuildTooltip(ItemTooltip tooltip)
     {
-        var baseTooltip = base.BuildTooltip();
-        var durabilityPercent = _durability * 100 / initialDurability;
-        return $"{baseTooltip}\n{durabilityPercent}% durability";
+        base.BuildTooltip(tooltip);
+        
+        var durabilityPercentage = _durability * 100 / initialDurability;
+        tooltip.Add($"Durability: {_durability}/{initialDurability} ({durabilityPercentage}%)");
+        tooltip.Add($"Efficiency: {efficiency}");
     }
 
     protected override void Update()

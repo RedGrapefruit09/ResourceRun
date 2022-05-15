@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bushes
   m_EditorClassIdentifier: 
   basePrefab: {fileID: 6752589934140906853, guid: e73442761b448eb4e9caa808b1e37918, type: 3}
-  frequency: 20
+  frequency: 40
   offset: {x: 0, y: 0, z: -0.5}
   variants:
   - weight: 1

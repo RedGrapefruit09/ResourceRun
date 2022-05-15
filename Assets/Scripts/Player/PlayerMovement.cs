@@ -76,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFall()
     {
-        var gridX = Mathf.RoundToInt(transform.position.x);
-        var gridY = Mathf.RoundToInt(transform.position.y);
+        var gridX = Mathf.FloorToInt(transform.position.x);
+        var gridY = Mathf.FloorToInt(transform.position.y);
 
         if (groundTilemap.GetTile(new Vector3Int(gridX, gridY, 0)) == null)
         {

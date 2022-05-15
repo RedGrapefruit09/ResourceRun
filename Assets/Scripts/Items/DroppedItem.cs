@@ -11,6 +11,8 @@ public class DroppedItem : MonoBehaviour
 
     private void Start()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+        
         _inventory = FindObjectOfType<PlayerInventory>();
         GetComponent<SpriteRenderer>().sprite = OriginalItem.GetComponent<SpriteRenderer>().sprite;
         

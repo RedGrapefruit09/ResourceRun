@@ -98,4 +98,4 @@ MonoBehaviour:
   maxCount: 1000
   label: Wood
   tooltip: The essential game resource obtained from all trees
-  worth: 10
+  worth: 25

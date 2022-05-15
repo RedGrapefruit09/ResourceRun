@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: 2
-  baseGatherDelay: 0.5
-  gatherDelayReducer: 0.025
+  baseGatherDelay: 0.3
+  gatherDelayReducer: 0.1
   droppedItemPrefab: {fileID: 7118710301252497892, guid: 930532f0f5573dd488ef6735c5cabc58, type: 3}
   animationType: 0
   overlays:

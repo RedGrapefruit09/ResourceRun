@@ -7,6 +7,7 @@ public class Gatherable : MonoBehaviour
     public ToolTarget target;
     [SerializeField] private float baseGatherDelay = 1f;
     [SerializeField] private float gatherDelayReducer = 0.05f;
+    [SerializeField] private float minimalGatherDelay = 0.05f;
     [SerializeField] private GameObject droppedItemPrefab;
     [Header("Animation Settings")]
     [SerializeField] private GatherableAnimationType animationType;
@@ -18,6 +19,7 @@ public class Gatherable : MonoBehaviour
     public IEnumerator Gather(ToolItem tool)
     {
         var delay = baseGatherDelay - gatherDelayReducer * tool.efficiency;
+        if (delay <= 0f) delay = minimalGatherDelay;
 
         if (animationType == GatherableAnimationType.Overlay)
         {
@@ -56,13 +58,10 @@ public class Gatherable : MonoBehaviour
         tool.Use();
         
         LootTable.Generate(
-            instantiateFunction: (obj, pos) => Instantiate(obj, pos, Quaternion.identity),
             droppedItemPrefab,
             basePos: transform.position,
-            minXSpread: -1.5f,
-            minYSpread: -1.5f,
-            maxXSpread: 1.5f,
-            maxYSpread: 1.5f);
+            minXSpread: -1f, minYSpread: -1f,
+            maxXSpread: 1f, maxYSpread: 1f);
 
         Destroy(gameObject);
     }

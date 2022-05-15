@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SimpleItem : Item
 {
-    [SerializeField] private string tooltip;
+    [FormerlySerializedAs("tooltip")] [SerializeField] private string tooltipLine;
 
     private PlayerMovement _playerMovement;
     private SpriteRenderer _spriteRenderer;
@@ -26,9 +27,9 @@ public class SimpleItem : Item
         gameObject.SetActive(false);
     }
 
-    public override string BuildTooltip()
+    public override void BuildTooltip(ItemTooltip tooltip)
     {
-        return tooltip;
+        tooltip.Add(tooltipLine);
     }
 
     protected virtual void Update()

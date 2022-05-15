@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: fc86f66b6c2dc744eac6470e550e2321, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -95,11 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e3a9354fe148008a381b5483faae08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCount: 5
+  maxCount: 1
   label: Bronze Axe
-  tooltip: A first-grade axe out of bronze.
-  initialDurability: 150
-  efficiency: 3
+  tooltipLine: A first-grade axe out of bronze.
+  initialDurability: 300
+  efficiency: 1
   target: 1
   consumedDurability: 25
   repairedDurability: 100

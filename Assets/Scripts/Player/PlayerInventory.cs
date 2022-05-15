@@ -53,10 +53,7 @@ public class PlayerInventory : MonoBehaviour
         
         foreach (var startupItem in startupItems)
         {
-            var clone = Instantiate(startupItem);
-            var item = clone.GetComponent<Item>();
-            item.OnDeselected();
-            Insert(item);
+            Item.CreateAndInsert(startupItem, inventory: this);
         }
         
         SelectItem(1);
@@ -96,11 +93,12 @@ public class PlayerInventory : MonoBehaviour
             if (item == null)
             {
                 Set(i, insertedItem);
+                Compress();
                 return true;
             }
             
             // The two items aren't of the same type
-            if (item.label != insertedItem.label) continue;
+            if (Item.Different(item, insertedItem)) continue;
             
             var space = item.maxCount - item.Amount;
 
@@ -110,10 +108,89 @@ public class PlayerInventory : MonoBehaviour
             // Merge two items together, adding together the amounts
             item.Increment(insertedItem.Amount);
             Destroy(insertedItem.gameObject);
+            Compress();
             return true;
         }
 
         return false;
+    }
+
+    public void Extract(Item extractedItem, int amount)
+    {
+        Compress();
+
+        for (var i = 1; i <= InventorySize; ++i)
+        {
+            var item = Get(i);
+
+            if (item == null) continue;
+            if (Item.Different(item, extractedItem)) continue;
+            
+            item.Decrement(amount);
+
+            if (item.Amount <= 0)
+            {
+                Set(i, null);
+                Destroy(item.gameObject);
+            }
+        }
+    }
+
+    public int CountItem(Item countedItem)
+    {
+        var amount = 0;
+
+        for (var i = 1; i <= InventorySize; ++i)
+        {
+            var item = Get(i);
+
+            if (Item.Same(item, countedItem))
+            {
+                amount += item.Amount;
+            }
+        }
+        
+        return amount;
+    }
+    
+    private void Compress()
+    {
+        void BackShift(int slot)
+        {
+            if (slot >= InventorySize) return;
+            
+            for (var i = slot + 1; i <= InventorySize; ++i)
+            {
+                var item = Get(i);
+                Set(i, null);
+                Set(i - 1, item);
+            }
+        }
+        
+        var encounters = new Dictionary<string, int>();
+
+        for (var i = 1; i <= InventorySize; ++i)
+        {
+            var item = Get(i);
+
+            if (item == null)
+            {
+                BackShift(i);
+                continue;
+            }
+
+            if (encounters.ContainsKey(item.label))
+            {
+                var slot = encounters[item.label];
+                var sourceItem = Get(slot);
+                sourceItem.Increment(item.Amount);
+                RemoveItem(item);
+            }
+            else
+            {
+                encounters.Add(item.label, i);
+            }
+        }
     }
 
     public void RemoveItem(Item item)
@@ -145,7 +222,7 @@ public class PlayerInventory : MonoBehaviour
         _tooltipShown = true;
         tooltipBox.SetActive(true);
         itemNameText.text = _selectedItem.label;
-        itemTooltipText.text = _selectedItem.BuildTooltip();
+        itemTooltipText.text = _selectedItem.GetTooltip();
     }
 
     private void UpdateTooltipUI()
@@ -154,7 +231,7 @@ public class PlayerInventory : MonoBehaviour
         {
             if (_selectedItem != null)
             {
-                itemTooltipText.text = _selectedItem.BuildTooltip();
+                itemTooltipText.text = _selectedItem.GetTooltip();
             }
             else
             {
@@ -218,10 +295,8 @@ public class PlayerInventory : MonoBehaviour
     private void DropItem()
     {
         var pos = new Vector3(_playerTransform.position.x, _playerTransform.position.y + 1f, 0f);
-        var clone = Instantiate(droppedItemPrefab, pos, Quaternion.identity);
-        clone.GetComponent<DroppedItem>().OriginalItem = _selectedItem;
-            
-        _selectedItem.OnDeselected();
+        Item.Drop(droppedItemPrefab, pos, _selectedItem);   
+        
         _selectedItem = null;
         Set(_selectedItemSlot, null);
     }

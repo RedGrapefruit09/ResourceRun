@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ores
   m_EditorClassIdentifier: 
   basePrefab: {fileID: 6752589934140906853, guid: a3170a0dd1cda204fb8bdd25895889ec, type: 3}
-  frequency: 15
+  frequency: 75
   offset: {x: 0, y: 0, z: -1}
   variants:
   - weight: 100

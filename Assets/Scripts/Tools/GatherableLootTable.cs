@@ -16,7 +16,6 @@ public class GatherableLootTable : ScriptableObject
     }
     
     public void Generate(
-        Func<GameObject, Vector3, GameObject> instantiateFunction,
         GameObject droppedItemPrefab,
         Vector3 basePos,
         float minXSpread,
@@ -31,15 +30,10 @@ public class GatherableLootTable : ScriptableObject
             var pos = new Vector3(basePos.x + xSpread, basePos.y + ySpread);
             
             var amount = Random.Range(entry.minAmount, entry.maxAmount + 1);
-            if (amount == 0) return;
+            if (amount == 0) continue;
             
-            var itemObject = instantiateFunction.Invoke(entry.prefab, Vector3.zero);
-            var item = itemObject.GetComponent<Item>();
-            item.Amount = amount;
-            itemObject.SetActive(false);
-            
-            var droppedItem = instantiateFunction.Invoke(droppedItemPrefab, pos).GetComponent<DroppedItem>();
-            droppedItem.OriginalItem = item;
+            var item = Item.Create(entry.prefab, amount);
+            Item.Drop(droppedItemPrefab, pos, item);
         }
     }
 }

@@ -139,6 +139,8 @@ public class PlayerUpgrades : MonoBehaviour
             _inventory.ExtractItem(ingredient.item.GetComponent<Item>(), ingredient.requirement);
         }
 
+        _inventory.ExtractItem(_currentRecipe.inputItem.GetComponent<Item>());
+        
         Item.CreateAndInsert(_currentRecipe.outputItem, _inventory);
     }
     

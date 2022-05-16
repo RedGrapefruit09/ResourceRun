@@ -98,9 +98,9 @@ MonoBehaviour:
   maxCount: 1
   label: Ruby Axe
   tooltipLine: A fifth-grade axe out of ruby.
-  initialDurability: 1250
+  initialDurability: 600
   efficiency: 9
   target: 1
-  consumedDurability: 25
-  repairedDurability: 100
+  consumedDurability: 20
+  repairedDurability: 150
   animationRotations: 35

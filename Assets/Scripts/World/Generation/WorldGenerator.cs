@@ -131,11 +131,13 @@ public class WorldGenerator : MonoBehaviour
     /// <param name="y">The grid Y position</param>
     public void DestroyPositionalObject(int x, int y)
     {
-        var vector = new Vector2Int(x, y);
+        var pos = new Vector2Int(x, y);
 
-        if (_positionalObjects.TryGetValue(vector, out var obj))
+        if (_positionalObjects.TryGetValue(pos, out var obj))
         {
-            _positionalObjects.Remove(vector);
+            if (obj == null) return;
+            
+            _positionalObjects.Remove(pos);
             Destroy(obj);
             Debug.Log($"Deleted a positional object at x={x}; y={y}");
         }

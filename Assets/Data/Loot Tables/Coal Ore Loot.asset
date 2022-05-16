@@ -18,4 +18,4 @@ MonoBehaviour:
     maxAmount: 5
   - prefab: {fileID: 2758141120911807757, guid: 4c00a1a377b826b4e9b10e2f9acb3d38, type: 3}
     minAmount: 1
-    maxAmount: 3
+    maxAmount: 6

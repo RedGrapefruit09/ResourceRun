@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Text;
 using UnityEngine;
 
 public class ToolItem : SimpleItem
@@ -8,24 +7,45 @@ public class ToolItem : SimpleItem
     [SerializeField] private int initialDurability;
     public int efficiency;
     public ToolTarget target;
-    [SerializeField] private int consumedDurability = 25;
-    [SerializeField] private int repairedDurability = 50;
+    [SerializeField] private int consumedDurability = 20;
     [SerializeField] private int animationRotations;
-
+    
+    [Header("Repair Settings")]
+    [SerializeField] private int initialRepairEfficiency = 250;
+    [SerializeField] private int initialRepairCost = 3;
+    [SerializeField] private float repairEfficiencyDegradation = 0.1f;
+    [SerializeField] private int repairCostIncrease = 2;
+    
+    public int RepairCost { get; private set; }
+    public string MaterialLabel { get; private set; }
+    
     private int _durability;
+    private int _repairEfficiency;
     private PlayerInventory _inventory;
     private bool _animationPlaying;
 
     protected override void Start()
     {
         base.Start();
+        
         _durability = initialDurability;
+        
+        _repairEfficiency = initialRepairEfficiency;
+        if (_repairEfficiency > initialDurability) _repairEfficiency = initialDurability;
+
+        RepairCost = initialRepairCost;
+
         _inventory = FindObjectOfType<PlayerInventory>();
+        MaterialLabel = label.Split(' ')[0];
     }
 
     public void Repair()
     {
-        _durability += repairedDurability;
+        _durability += _repairEfficiency;
+
+        var multiplier = 1f - repairEfficiencyDegradation;
+        _repairEfficiency = Mathf.RoundToInt(_repairEfficiency * multiplier);
+        RepairCost += repairCostIncrease;
         
         if (_durability > initialDurability)
         {
@@ -42,6 +62,8 @@ public class ToolItem : SimpleItem
             _inventory.RemoveItem(this);
         }
     }
+
+    public bool HasFullDurability() => _durability >= initialDurability;
 
     public void StartAnimation()
     {
@@ -78,8 +100,12 @@ public class ToolItem : SimpleItem
         base.BuildTooltip(tooltip);
         
         var durabilityPercentage = _durability * 100 / initialDurability;
+        var repairRatio = _repairEfficiency * 100 / initialDurability;
+        
         tooltip.Add($"Durability: {_durability}/{initialDurability} ({durabilityPercentage}%)");
         tooltip.Add($"Efficiency: {efficiency}");
+        tooltip.Add($"{_repairEfficiency} durability ({repairRatio}%) will be repaired every time");
+        tooltip.Add($"Repair will cost {RepairCost} {MaterialLabel}");
     }
 
     protected override void Update()

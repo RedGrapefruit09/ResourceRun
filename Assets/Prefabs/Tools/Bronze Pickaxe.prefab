@@ -98,9 +98,9 @@ MonoBehaviour:
   maxCount: 1
   label: Bronze Pickaxe
   tooltipLine: A first-grade pickaxe out of bronze.
-  initialDurability: 300
+  initialDurability: 200
   efficiency: 1
   target: 0
-  consumedDurability: 25
-  repairedDurability: 100
+  consumedDurability: 20
+  repairedDurability: 150
   animationRotations: 20

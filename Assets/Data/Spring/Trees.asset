@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Trees
   m_EditorClassIdentifier: 
   basePrefab: {fileID: 6752589934140906853, guid: d7fd2edc0338a26419620210a4e4dce2, type: 3}
-  frequency: 50
+  frequency: 80
   offset: {x: 0, y: -0.5, z: -1}
   occupiedPositions:
   - {x: 0, y: 0}

@@ -115,7 +115,7 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
-    public void ExtractItem(Item extractedItem, int amount)
+    public void ExtractItem(Item extractedItem, int amount = 1)
     {
         Compress();
 

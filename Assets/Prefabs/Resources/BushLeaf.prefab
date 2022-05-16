@@ -97,5 +97,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 1000
   label: Bush Leaf
-  tooltip: The least valuable, yet the easiest to get item in the game
-  worth: 2
+  tooltipLine: The least valuable, yet the easiest to get item in the game
+  worth: 5

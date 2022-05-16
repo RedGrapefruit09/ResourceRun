@@ -98,9 +98,9 @@ MonoBehaviour:
   maxCount: 1
   label: Diamond Axe
   tooltipLine: A third-grade axe out of diamonds.
-  initialDurability: 750
+  initialDurability: 400
   efficiency: 5
   target: 1
-  consumedDurability: 25
-  repairedDurability: 100
+  consumedDurability: 20
+  repairedDurability: 150
   animationRotations: 35

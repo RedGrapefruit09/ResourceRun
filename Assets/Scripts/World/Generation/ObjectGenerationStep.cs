@@ -77,12 +77,11 @@ public class ObjectGenerationStep : GenerationStep
                     gatherable.LootTable = variant.lootTable;
                 }
                 
-                generator.AddPositionalObject(x, y, clone);
-
                 foreach (var offset in group.occupiedPositions)
                 {
                     var pos = basePos + offset;
                     _occupiedPositions.Add(pos);
+                    generator.AddPositionalObject(pos.x, pos.y, clone);
                 }
             }
         }

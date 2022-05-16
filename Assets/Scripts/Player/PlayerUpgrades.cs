@@ -33,7 +33,7 @@ public class PlayerUpgrades : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.U))
         {
             ToggleUpgradeUI();
         }

@@ -104,7 +104,7 @@ public class ToolItem : SimpleItem
         
         tooltip.Add($"Durability: {_durability}/{initialDurability} ({durabilityPercentage}%)");
         tooltip.Add($"Efficiency: {efficiency}");
-        tooltip.Add($"{_repairEfficiency} durability ({repairRatio}%) will be repaired every time");
+        tooltip.Add($"{_repairEfficiency} durability ({repairRatio}%) will be repaired next time");
         tooltip.Add($"Repair will cost {RepairCost} {MaterialLabel}");
     }
 

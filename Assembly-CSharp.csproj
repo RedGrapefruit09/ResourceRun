@@ -61,10 +61,10 @@
      <Compile Include="Assets\Scripts\Tools\ToolItem.cs" />
      <Compile Include="Assets\Scripts\World\Generation\GenerationStep.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerRepair.cs" />
      <Compile Include="Assets\Scripts\World\Generation\ObjectGenerationStep.cs" />
      <Compile Include="Assets\Scripts\Tools\GatherableLootTable.cs" />
      <Compile Include="Assets\Scripts\World\Season.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerRepair.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>

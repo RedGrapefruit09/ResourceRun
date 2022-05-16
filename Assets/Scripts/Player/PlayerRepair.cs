@@ -42,7 +42,7 @@ public class PlayerRepair : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R))
         {
             ToggleRepairUI();
         }

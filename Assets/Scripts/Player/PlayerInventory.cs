@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,12 +30,17 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private Text itemNameText;
     [SerializeField] private Text itemTooltipText;
     [SerializeField] private GameObject[] startupItems;
+    [SerializeField] private Sprite uiSprite;
+    [SerializeField] private GameObject cancelButton;
 
     private readonly List<Item> _items = new List<Item>();
     private int _selectedItemSlot = 1;
     private Item _selectedItem;
     private Transform _playerTransform;
     private bool _tooltipShown;
+    private int _firstSwapSlot = -1;
+    private int _secondSwapSlot = -1;
+    private bool _isSwapping;
     
     public bool BlockSelection { private get; set; }
 
@@ -50,6 +56,7 @@ public class PlayerInventory : MonoBehaviour
         }
         
         tooltipBox.SetActive(false);
+        cancelButton.SetActive(false);
         
         foreach (var startupItem in startupItems)
         {
@@ -153,7 +160,7 @@ public class PlayerInventory : MonoBehaviour
         return amount;
     }
 
-    private void ShiftBackFrom(int slot)
+    private void ShiftBackFrom(int slot, int offset)
     {
         if (slot >= InventorySize) return;
         
@@ -161,11 +168,11 @@ public class PlayerInventory : MonoBehaviour
         {
             var item = GetItem(i);
             SetItem(i, null);
-            SetItem(i - 1, item);
+            SetItem(i - offset, item);
         }
     }
     
-    private void Compress()
+    public void Compress()
     {
         var encounters = new Dictionary<string, int>();
 
@@ -175,7 +182,15 @@ public class PlayerInventory : MonoBehaviour
 
             if (item == null)
             {
-                ShiftBackFrom(i);
+                var offset = 0;
+
+                for (var j = i; j > 0; --j)
+                {
+                    if (GetItem(j) != null) break;
+                    offset++;
+                }
+                
+                ShiftBackFrom(i, offset);
                 continue;
             }
 
@@ -209,6 +224,18 @@ public class PlayerInventory : MonoBehaviour
 
     #region Tooltips
 
+    public void TriggerTooltip()
+    {
+        if (_tooltipShown)
+        {
+            HideTooltip();
+        }
+        else
+        {
+            ShowTooltip();
+        }
+    }
+    
     private void HideTooltip()
     {
         tooltipBox.SetActive(false);
@@ -240,7 +267,7 @@ public class PlayerInventory : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.T))
         {
             if (_tooltipShown)
             {
@@ -253,6 +280,69 @@ public class PlayerInventory : MonoBehaviour
         }
     }
     
+    #endregion
+
+    #region Item Swapping
+
+    public void TrySwapItem(int slot)
+    {
+        cancelButton.SetActive(true);
+        
+        if (_firstSwapSlot == -1)
+        {
+            _firstSwapSlot = slot;
+            return;
+        }
+
+        _secondSwapSlot = slot;
+
+        if (!_isSwapping)
+        {
+            StartCoroutine(PerformItemSwap());
+        }
+    }
+
+    private IEnumerator PerformItemSwap()
+    {
+        _isSwapping = true;
+        
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+
+        if (_firstSwapSlot == -1 && _secondSwapSlot == -1) yield break;
+        
+        var firstItem = GetItem(_firstSwapSlot);
+        var secondItem = GetItem(_secondSwapSlot);
+        
+        SetItem(_firstSwapSlot, secondItem);
+        SetItem(_secondSwapSlot, firstItem);
+
+        if (_firstSwapSlot == _selectedItemSlot && firstItem != null)
+        {
+            firstItem.OnDeselected();
+        }
+
+        if (_secondSwapSlot == _selectedItemSlot && secondItem != null)
+        {
+            secondItem.OnDeselected();
+        }
+
+        _firstSwapSlot = -1;
+        _secondSwapSlot = -1;
+        
+        _isSwapping = false;
+        
+        CancelSwap();
+    }
+
+    public void CancelSwap()
+    {
+        cancelButton.SetActive(false);
+        _firstSwapSlot = -1;
+        _secondSwapSlot = -1;
+        StopCoroutine(nameof(PerformItemSwap));
+        _isSwapping = false;
+    }
+
     #endregion
 
     #region Item Operations
@@ -314,16 +404,36 @@ public class PlayerInventory : MonoBehaviour
 
             slot.selectorImage.gameObject.SetActive(i == _selectedItemSlot);
 
+            if (i == _firstSwapSlot)
+            {
+                slot.swapHintText.gameObject.SetActive(true);
+                slot.swapHintText.text = "1";
+            }
+            else
+            {
+                if (i == _secondSwapSlot)
+                {
+                    slot.swapHintText.gameObject.SetActive(true);
+                    slot.swapHintText.text = "2";
+                }
+                else
+                {
+                    slot.swapHintText.gameObject.SetActive(false);
+                }
+            }
+            
             if (item == null)
             {
                 slot.amountText.gameObject.SetActive(false);
-                slot.itemImage.gameObject.SetActive(false);
+                slot.itemImage.sprite = uiSprite;
+                slot.itemImage.color = new Color(0, 0, 0, 0);
                 continue;
             }
 
             slot.amountText.gameObject.SetActive(true);
             slot.amountText.text = item.Amount.ToString();
             slot.itemImage.gameObject.SetActive(true);
+            slot.itemImage.color = Color.white;
             slot.itemImage.sprite = item.GetComponent<SpriteRenderer>().sprite;
         }
     }
@@ -331,16 +441,17 @@ public class PlayerInventory : MonoBehaviour
     private void Update()
     {
         SelectWithKeyboard();
-        if (Input.GetKeyDown(KeyCode.Q) && _selectedItem != null) DropItem();
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Q) && _selectedItem != null) DropItem();
         UpdateUI();
         UpdateTooltipUI();
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.C)) Compress();
     }
     
     #endregion
     
     private static bool IsSlotInvalid(int slot)
     {
-        if (slot > 0 && slot <= InventorySize) return false;
+        if (slot >= -1 && slot <= InventorySize) return false;
         
         Debug.LogError($"Tried to get/set an Item to/from an invalid slot: {slot}");
         return true;
@@ -352,5 +463,6 @@ public class PlayerInventory : MonoBehaviour
         public Image itemImage;
         public Image selectorImage;
         public Text amountText;
+        public Text swapHintText;
     }
 }

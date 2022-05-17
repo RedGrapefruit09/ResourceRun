@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 
-public class ResourceItem : SimpleItem
+namespace ResourceRun.Items
 {
-    [SerializeField] private int worth;
-
-    public override void BuildTooltip(ItemTooltip tooltip)
+    public class ResourceItem : SimpleItem
     {
-        base.BuildTooltip(tooltip);
-        tooltip.Add($"Worth {worth}$ of in-game currency");
+        [SerializeField] private int worth;
+
+        public override void BuildTooltip(ItemTooltip tooltip)
+        {
+            base.BuildTooltip(tooltip);
+            tooltip.Add($"Worth {worth}$ of in-game currency");
+        }
     }
 }

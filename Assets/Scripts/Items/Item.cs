@@ -1,82 +1,73 @@
-﻿using System.Text;
+﻿using ResourceRun.Player;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour
+namespace ResourceRun.Items
 {
-    [Header("Item Settings")]
-    public int maxCount;
-    public string label;
-
-    public int Amount { get; set; } = 1;
-
-    public abstract void OnSelected();
-
-    public abstract void OnDeselected();
-
-    public abstract void BuildTooltip(ItemTooltip tooltip);
-
-    public string GetTooltip()
+    public abstract class Item : MonoBehaviour
     {
-        var tooltip = new ItemTooltip();
-        BuildTooltip(tooltip);
-        return tooltip.Get();
-    }
-    
-    public void Increment(int value = 1)
-    {
-        Amount += value;
-    }
+        [Header("Item Settings")] public int maxCount;
 
-    public void Decrement(int value = 1)
-    {
-        Amount -= value;
-    }
+        public string label;
 
-    public static bool Same(Item first, Item second)
-    {
-        if (first == null && second == null) return true;
-        if (first == null || second == null) return false;
+        public int Amount { get; set; } = 1;
 
-        return first.label == second.label;
-    }
+        public abstract void OnSelected();
 
-    public static bool Different(Item first, Item second) => !Same(first, second);
+        public abstract void OnDeselected();
 
-    public static Item Create(GameObject prefab, int amount = 1)
-    {
-        var clone = Instantiate(prefab);
-        var item = clone.GetComponent<Item>();
-        item.Amount = amount;
-        item.OnDeselected();
-        return item;
-    }
-    
-    public static void CreateAndInsert(GameObject prefab, PlayerInventory inventory, int amount = 1)
-    {
-        inventory.InsertItem(Create(prefab, amount));
-    }
+        public abstract void BuildTooltip(ItemTooltip tooltip);
 
-    public static void Drop(GameObject droppedItemPrefab, Vector3 pos, Item item)
-    {
-        item.gameObject.SetActive(false);
-        item.OnDeselected();
-        var clone = Instantiate(droppedItemPrefab, pos, Quaternion.identity);
-        var droppedItem = clone.GetComponent<DroppedItem>();
-        droppedItem.OriginalItem = item;
-    }
-}
+        public string GetTooltip()
+        {
+            var tooltip = new ItemTooltip();
+            BuildTooltip(tooltip);
+            return tooltip.Get();
+        }
 
-public class ItemTooltip
-{
-    private readonly StringBuilder _builder = new StringBuilder();
+        public void Increment(int value = 1)
+        {
+            Amount += value;
+        }
 
-    public void Add(string line)
-    {
-        _builder.Append($"{line}\n");
-    }
+        public void Decrement(int value = 1)
+        {
+            Amount -= value;
+        }
 
-    public string Get()
-    {
-        return _builder.ToString();
+        public static bool Same(Item first, Item second)
+        {
+            if (first == null && second == null) return true;
+            if (first == null || second == null) return false;
+
+            return first.label == second.label;
+        }
+
+        public static bool Different(Item first, Item second)
+        {
+            return !Same(first, second);
+        }
+
+        public static Item Create(GameObject prefab, int amount = 1)
+        {
+            var clone = Instantiate(prefab);
+            var item = clone.GetComponent<Item>();
+            item.Amount = amount;
+            item.OnDeselected();
+            return item;
+        }
+
+        public static void CreateAndInsert(GameObject prefab, PlayerInventory inventory, int amount = 1)
+        {
+            inventory.InsertItem(Create(prefab, amount));
+        }
+
+        public static void Drop(GameObject droppedItemPrefab, Vector3 pos, Item item)
+        {
+            item.gameObject.SetActive(false);
+            item.OnDeselected();
+            var clone = Instantiate(droppedItemPrefab, pos, Quaternion.identity);
+            var droppedItem = clone.GetComponent<DroppedItem>();
+            droppedItem.OriginalItem = item;
+        }
     }
 }

@@ -1,83 +1,86 @@
 ﻿using System.Collections;
+using ResourceRun.Gathering;
+using ResourceRun.Items;
 using UnityEngine;
 
-public class PlayerGathering : MonoBehaviour
+namespace ResourceRun.Player
 {
-    [SerializeField] private PlayerTrigger mineTrigger;
-    [SerializeField] private float floatSpeed;
-
-    private PlayerInventory _inventory;
-    private PlayerMovement _movement;
-
-    private void Start()
+    public class PlayerGathering : MonoBehaviour
     {
-        _inventory = GetComponent<PlayerInventory>();
-        _movement = GetComponent<PlayerMovement>();
-        
-        mineTrigger.RequireComponent<Gatherable>();
-    }
+        [SerializeField] private PlayerTrigger mineTrigger;
+        [SerializeField] private float floatSpeed;
 
-    private void Update()
-    {
-        if (mineTrigger.Triggered && Input.GetKeyDown(KeyCode.G))
+        private PlayerInventory _inventory;
+        private PlayerMovement _movement;
+
+        private void Start()
         {
-            var selectedItem = _inventory.GetSelectedItem();
-            if (selectedItem == null) return;
-            
-            var gatherable = mineTrigger.TriggerObject.GetComponent<Gatherable>();
+            _inventory = GetComponent<PlayerInventory>();
+            _movement = GetComponent<PlayerMovement>();
 
-            if (selectedItem is ToolItem tool && CompareTargets(tool.target, gatherable.target))
+            mineTrigger.RequireComponent<Gatherable>();
+        }
+
+        private void Update()
+        {
+            if (mineTrigger.Triggered && Input.GetKeyDown(KeyCode.G))
             {
-                StartCoroutine(Gather(gatherable, tool));
+                var selectedItem = _inventory.GetSelectedItem();
+                if (selectedItem == null) return;
+
+                var gatherable = mineTrigger.TriggerObject.GetComponent<Gatherable>();
+
+                if (selectedItem is ToolItem tool && CompareTargets(tool.target, gatherable.target))
+                    StartCoroutine(Gather(gatherable, tool));
             }
         }
-    }
 
-    private IEnumerator Gather(Gatherable gatherable, ToolItem tool)
-    {
-        _movement.Frozen = true;
-        _inventory.BlockSelection = true;
-        
-        if (tool.target == ToolTarget.Trees && gatherable.target == ToolTarget.Trees)
+        private IEnumerator Gather(Gatherable gatherable, ToolItem tool)
         {
-            var offsetPosition = _movement.Facing == PlayerFacing.Right ? Vector3.left : Vector3.right;
-            yield return FloatTowards(transform.position + offsetPosition * 0.75f);
+            _movement.Frozen = true;
+            _inventory.BlockSelection = true;
+
+            if (tool.target == ToolTarget.Trees && gatherable.target == ToolTarget.Trees)
+            {
+                var offsetPosition = _movement.Facing == PlayerFacing.Right ? Vector3.left : Vector3.right;
+                yield return FloatTowards(transform.position + offsetPosition * 0.75f);
+            }
+            else
+            {
+                var targetPosition = new Vector3(transform.position.x, gatherable.transform.position.y);
+                yield return FloatTowards(targetPosition);
+            }
+
+            tool.StartAnimation();
+            yield return gatherable.Gather(tool);
+            tool.StopAnimation();
+
+            _movement.Frozen = false;
+            _inventory.BlockSelection = false;
         }
-        else
+
+        private IEnumerator FloatTowards(Vector3 targetPosition)
         {
-            var targetPosition = new Vector3(transform.position.x, gatherable.transform.position.y);
-            yield return FloatTowards(targetPosition);
+            while (true)
+            {
+                var distance = Vector2.Distance(transform.position, targetPosition);
+
+                transform.position = Vector2.MoveTowards(
+                    transform.position,
+                    targetPosition,
+                    floatSpeed * Time.deltaTime);
+
+                yield return new WaitForSeconds(0.001f);
+
+                if (distance < 0.1f) break;
+            }
         }
 
-        tool.StartAnimation();
-        yield return gatherable.Gather(tool);
-        tool.StopAnimation();
-        
-        _movement.Frozen = false;
-        _inventory.BlockSelection = false;
-    }
-
-    private IEnumerator FloatTowards(Vector3 targetPosition)
-    {
-        while (true)
+        private static bool CompareTargets(ToolTarget tool, ToolTarget gatherable)
         {
-            var distance = Vector2.Distance(transform.position, targetPosition);
+            if (gatherable == ToolTarget.AnyObject) return true;
 
-            transform.position = Vector2.MoveTowards(
-                transform.position,
-                targetPosition,
-                floatSpeed * Time.deltaTime);
-
-            yield return new WaitForSeconds(0.001f);
-
-            if (distance < 0.1f) break;
+            return tool == gatherable;
         }
-    }
-
-    private static bool CompareTargets(ToolTarget tool, ToolTarget gatherable)
-    {
-        if (gatherable == ToolTarget.AnyObject) return true;
-
-        return tool == gatherable;
     }
 }

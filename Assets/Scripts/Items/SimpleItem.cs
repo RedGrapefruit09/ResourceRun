@@ -1,50 +1,53 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using ResourceRun.Player;
+using UnityEngine;
 
-public class SimpleItem : Item
+namespace ResourceRun.Items
 {
-    [FormerlySerializedAs("tooltip")] [SerializeField] private string tooltipLine;
-
-    private PlayerMovement _playerMovement;
-    private SpriteRenderer _spriteRenderer;
-
-    protected virtual void Start()
+    public class SimpleItem : Item
     {
-        _playerMovement = FindObjectOfType<PlayerMovement>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        transform.SetParent(_playerMovement.transform);
-        transform.localScale = new Vector3(0.75f, 0.75f, 1f);
-    }
+        [SerializeField] private string tooltipLine;
 
-    public override void OnSelected()
-    {
-        gameObject.SetActive(true);
-    }
+        private PlayerMovement _playerMovement;
+        private SpriteRenderer _spriteRenderer;
 
-    public override void OnDeselected()
-    {
-        gameObject.SetActive(false);
-    }
-
-    public override void BuildTooltip(ItemTooltip tooltip)
-    {
-        tooltip.Add(tooltipLine);
-    }
-
-    protected virtual void Update()
-    {
-        if (_playerMovement.Facing == PlayerFacing.Left)
+        protected virtual void Start()
         {
-            transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
-            _spriteRenderer.flipY = false;
+            _playerMovement = FindObjectOfType<PlayerMovement>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+
+            transform.SetParent(_playerMovement.transform);
+            transform.localScale = new Vector3(0.75f, 0.75f, 1f);
         }
-        else
+
+        protected virtual void Update()
         {
-            transform.localPosition = new Vector3(0.15f, -0.115f, -5f);
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
-            _spriteRenderer.flipY = true;
+            if (_playerMovement.Facing == PlayerFacing.Left)
+            {
+                transform.localPosition = new Vector3(-0.2f, -0.1f, -5f);
+                transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                _spriteRenderer.flipY = false;
+            }
+            else
+            {
+                transform.localPosition = new Vector3(0.15f, -0.115f, -5f);
+                transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 100f));
+                _spriteRenderer.flipY = true;
+            }
+        }
+
+        public override void OnSelected()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public override void OnDeselected()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public override void BuildTooltip(ItemTooltip tooltip)
+        {
+            tooltip.Add(tooltipLine);
         }
     }
 }

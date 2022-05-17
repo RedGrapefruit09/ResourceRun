@@ -1,58 +1,59 @@
 ﻿using System.Collections;
+using ResourceRun.Player;
 using UnityEngine;
 
-public class DroppedItem : MonoBehaviour
+namespace ResourceRun.Items
 {
-    [SerializeField] private float despawnTime;
-    
-    public Item OriginalItem { private get; set; }
-    
-    private PlayerInventory _inventory;
-
-    private void Start()
+    public class DroppedItem : MonoBehaviour
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
-        
-        _inventory = FindObjectOfType<PlayerInventory>();
-        GetComponent<SpriteRenderer>().sprite = OriginalItem.GetComponent<SpriteRenderer>().sprite;
-        
-        StartCoroutine(Rescale());
-        StartCoroutine(Despawn());
-    }
+        [SerializeField] private float despawnTime;
 
-    private IEnumerator Rescale()
-    {
-        while (true)
+        private PlayerInventory _inventory;
+
+        public Item OriginalItem { private get; set; }
+
+        private void Start()
         {
-            for (var i = 0; i < 25; ++i)
-            {
-                transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f);
-                yield return new WaitForSeconds(0.05f);
-            }
-            
-            for (var i = 0; i < 25; ++i)
-            {
-                transform.localScale = new Vector3(transform.localScale.x + 0.01f, transform.localScale.y + 0.01f);
-                yield return new WaitForSeconds(0.05f);
-            }
-            
-            yield return new WaitForSeconds(0.001f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+
+            _inventory = FindObjectOfType<PlayerInventory>();
+            GetComponent<SpriteRenderer>().sprite = OriginalItem.GetComponent<SpriteRenderer>().sprite;
+
+            StartCoroutine(Rescale());
+            StartCoroutine(Despawn());
         }
-    }
 
-    private IEnumerator Despawn()
-    {
-        yield return new WaitForSeconds(despawnTime);
-        Destroy(OriginalItem);
-        Destroy(gameObject);
-    }
-    
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Player")) return;
-
-        if (_inventory.InsertItem(OriginalItem))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (!collision.gameObject.CompareTag("Player")) return;
+
+            if (_inventory.InsertItem(OriginalItem)) Destroy(gameObject);
+        }
+
+        private IEnumerator Rescale()
+        {
+            while (true)
+            {
+                for (var i = 0; i < 25; ++i)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x - 0.01f, transform.localScale.y - 0.01f);
+                    yield return new WaitForSeconds(0.05f);
+                }
+
+                for (var i = 0; i < 25; ++i)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x + 0.01f, transform.localScale.y + 0.01f);
+                    yield return new WaitForSeconds(0.05f);
+                }
+
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+
+        private IEnumerator Despawn()
+        {
+            yield return new WaitForSeconds(despawnTime);
+            Destroy(OriginalItem);
             Destroy(gameObject);
         }
     }

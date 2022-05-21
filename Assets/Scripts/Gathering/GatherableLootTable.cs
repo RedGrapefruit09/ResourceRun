@@ -1,5 +1,7 @@
 ﻿using System;
 using ResourceRun.Items;
+using ResourceRun.World;
+using ResourceRun.World.Generation;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +15,12 @@ namespace ResourceRun.Gathering
     {
         [Tooltip("The entries of this loot table, each representing an item type")]
         public Entry[] entries;
+        
+        /// <summary>
+        /// By how much will the <see cref="entries"/>'s amount be multiplied.
+        /// This is set from an <see cref="ObjectGroup"/> and copied here automatically by the <see cref="ObjectGenerationStep"/>.
+        /// </summary>
+        public int LootMultiplier { private get; set; }
 
         public void Generate(
             GameObject droppedItemPrefab,
@@ -30,6 +38,7 @@ namespace ResourceRun.Gathering
 
                 var amount = Random.Range(entry.minAmount, entry.maxAmount + 1);
                 if (amount == 0) continue;
+                amount *= LootMultiplier;
 
                 var item = Item.Create(entry.prefab, amount);
                 Item.Drop(droppedItemPrefab, pos, item);

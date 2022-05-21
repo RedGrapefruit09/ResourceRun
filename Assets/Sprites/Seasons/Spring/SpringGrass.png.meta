@@ -31,43 +31,43 @@ TextureImporter:
     second: spring_grass_bottomright
   - first:
       213: 8451020880110684679
-    second: SpringGrass_0
+    second: SpringGrass_TopLeft
   - first:
       213: -5083415088845566812
-    second: SpringGrass_1
+    second: SpringGrass_Top
   - first:
       213: -1971158153258139078
-    second: SpringGrass_2
+    second: SpringGrass_TopRight
   - first:
       213: -8522291436195361455
-    second: SpringGrass_3
+    second: SpringGrass_LeftAlone
   - first:
       213: 5305553168380895438
-    second: SpringGrass_4
+    second: SpringGrass_TopAlone
   - first:
       213: -5581329772294169403
-    second: SpringGrass_5
+    second: SpringGrass_Left
   - first:
       213: 2477541197439152204
-    second: SpringGrass_6
+    second: SpringGrass_Center
   - first:
       213: -7960512162941259813
-    second: SpringGrass_7
+    second: SpringGrass_Right
   - first:
       213: 4466729806020209022
-    second: SpringGrass_8
+    second: SpringGrass_RightAlone
   - first:
       213: -5161306144718892549
-    second: SpringGrass_9
+    second: SpringGrass_BottomAlone
   - first:
       213: -1455227765355454651
-    second: SpringGrass_10
+    second: SpringGrass_BottomLeft
   - first:
       213: 4657767200703018650
-    second: SpringGrass_11
+    second: SpringGrass_Bottom
   - first:
       213: 1320590626390761572
-    second: SpringGrass_12
+    second: SpringGrass_BottomRight
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -157,7 +157,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SpringGrass_0
+      name: SpringGrass_TopLeft
       rect:
         serializedVersion: 2
         x: 0
@@ -178,7 +178,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_1
+      name: SpringGrass_Top
       rect:
         serializedVersion: 2
         x: 16
@@ -199,7 +199,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_2
+      name: SpringGrass_TopRight
       rect:
         serializedVersion: 2
         x: 32
@@ -220,7 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_3
+      name: SpringGrass_LeftAlone
       rect:
         serializedVersion: 2
         x: 48
@@ -241,7 +241,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_4
+      name: SpringGrass_TopAlone
       rect:
         serializedVersion: 2
         x: 64
@@ -262,7 +262,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_5
+      name: SpringGrass_Left
       rect:
         serializedVersion: 2
         x: 0
@@ -283,7 +283,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_6
+      name: SpringGrass_Center
       rect:
         serializedVersion: 2
         x: 16
@@ -304,7 +304,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_7
+      name: SpringGrass_Right
       rect:
         serializedVersion: 2
         x: 32
@@ -325,7 +325,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_8
+      name: SpringGrass_RightAlone
       rect:
         serializedVersion: 2
         x: 48
@@ -346,7 +346,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_9
+      name: SpringGrass_BottomAlone
       rect:
         serializedVersion: 2
         x: 64
@@ -367,7 +367,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_10
+      name: SpringGrass_BottomLeft
       rect:
         serializedVersion: 2
         x: 0
@@ -388,7 +388,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_11
+      name: SpringGrass_Bottom
       rect:
         serializedVersion: 2
         x: 16
@@ -409,7 +409,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpringGrass_12
+      name: SpringGrass_BottomRight
       rect:
         serializedVersion: 2
         x: 32

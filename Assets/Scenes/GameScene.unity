@@ -2928,7 +2928,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3083,10 +3083,11 @@ MonoBehaviour:
   - {fileID: 558161177}
   - {fileID: 558161178}
   - {fileID: 558161179}
-  player: {fileID: 1399999693}
   worldWidth: 50
   worldHeight: 50
-  season: {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}
+  allSeasons:
+  - {fileID: 11400000, guid: f9d9b86168dc79d49ab563270751d4ad, type: 2}
+  - {fileID: 11400000, guid: a05a6823b6672914d9f5ce37f70ad731, type: 2}
 --- !u!114 &558161177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6324,6 +6325,7 @@ MonoBehaviour:
   staminaRegeneration: 3
   staminaBar: {fileID: 2093605067}
   groundTilemap: {fileID: 766318539}
+  fallSpeed: 0.35
 --- !u!114 &1399999699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6422,7 +6424,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9ff7743d2cc49a247b0ad04865b65b28, type: 2}
   - {fileID: 11400000, guid: 99d891a46b1def8448a4994d6819e4ab, type: 2}
   fulfilledColor: {r: 0, g: 1, b: 0.03529412, a: 1}
-  beingCollectedColor: {r: 0.91764706, g: 1, b: 0, a: 1}
+  partiallyFulfilledColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   missingColor: {r: 1, g: 0.22352941, b: 0, a: 1}
   rootUIObject: {fileID: 861505395}
   contentRootObject: {fileID: 1519423782}

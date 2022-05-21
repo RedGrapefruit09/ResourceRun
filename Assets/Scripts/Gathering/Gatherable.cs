@@ -32,7 +32,7 @@ namespace ResourceRun.Gathering
         /// <summary>
         /// The <see cref="GatherableLootTable"/> that is bound to this <see cref="Gatherable"/> object.
         /// </summary>
-        public GatherableLootTable LootTable { private get; set; }
+        public GatherableLootTable LootTable { get; set; }
 
         /// <summary>
         /// A coroutine that plays the gathering animation, drops the <see cref="LootTable"/> and destroys this <see cref="Gatherable"/>.

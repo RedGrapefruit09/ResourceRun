@@ -10,15 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b41b4bf921449cfad0a7f09e77d6c2d, type: 3}
-  m_Name: Bushes
+  m_Name: Spring Bushes
   m_EditorClassIdentifier: 
   basePrefab: {fileID: 6752589934140906853, guid: e73442761b448eb4e9caa808b1e37918, type: 3}
   frequency: 40
   offset: {x: 0, y: 0, z: -0.5}
   occupiedPositions:
   - {x: 0, y: 0}
+  lootMultiplier: 1
   variants:
   - weight: 1
     sprite: {fileID: 21300000, guid: c67f8d1c76023b442b2942d47a7ba886, type: 3}
-    colliderSize: {x: 1, y: 1}
+    colliderSize: {x: 0.94, y: 0.89}
+    lootTable: {fileID: 11400000, guid: c5d5028a648c7aa4486ef0129ac0662f, type: 2}
+  - weight: 1
+    sprite: {fileID: 21300000, guid: 9a362bd9b6b4d044a9ba3d8fe6705da0, type: 3}
+    colliderSize: {x: 0.626, y: 0.636}
+    lootTable: {fileID: 11400000, guid: c5d5028a648c7aa4486ef0129ac0662f, type: 2}
+  - weight: 1
+    sprite: {fileID: 21300000, guid: 71d5646dc59aaca4e8c79d101d879a5f, type: 3}
+    colliderSize: {x: 0.4, y: 0.4}
     lootTable: {fileID: 11400000, guid: c5d5028a648c7aa4486ef0129ac0662f, type: 2}

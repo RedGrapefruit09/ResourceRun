@@ -24,6 +24,9 @@ namespace ResourceRun.World
         [Tooltip("A list of positions relative to the center that an object from this group occupies")]
         public Vector2Int[] occupiedPositions;
 
+        [Range(1, 10)] [Tooltip("By how much loot amounts will be multiplied for every ObjectVariant that has a loot table bound to it")]
+        public int lootMultiplier = 1;
+
         [Tooltip("All ObjectVariants in this ObjectGroup")]
         public List<ObjectVariant> variants;
     }

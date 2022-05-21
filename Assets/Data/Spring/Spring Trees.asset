@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b41b4bf921449cfad0a7f09e77d6c2d, type: 3}
-  m_Name: Trees
+  m_Name: Spring Trees
   m_EditorClassIdentifier: 
   basePrefab: {fileID: 6752589934140906853, guid: d7fd2edc0338a26419620210a4e4dce2, type: 3}
   frequency: 80

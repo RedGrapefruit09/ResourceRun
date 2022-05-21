@@ -13,14 +13,14 @@ namespace ResourceRun.World
     [CreateAssetMenu(fileName = "New Season", menuName = "Game/Season")]
     public class Season : ScriptableObject
     {
-        [Header("General Settings")] [Tooltip("The pretty-formatted name of this season")]
+        [Header("General Settings")]
+        [Tooltip("The pretty-formatted name of this season")]
         public string seasonName;
-
         [Tooltip("The list of ObjectGroups that are only applicable to this Season")]
         public ObjectGroup[] objectGroups;
 
-        [Header("Ground Tiles")] public Tile groundCenterTile;
-
+        [Header("Ground Tiles")]
+        public Tile groundCenterTile;
         public Tile groundRightTile;
         public Tile groundLeftTile;
         public Tile groundTopTile;

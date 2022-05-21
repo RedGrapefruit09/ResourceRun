@@ -1,9 +1,8 @@
+using System.Collections;
+using ResourceRun.World.Generation;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace ResourceRun.Player
 {
@@ -39,9 +38,14 @@ namespace ResourceRun.Player
         [Header("Other")]
         [SerializeField] [Tooltip("The Tilemap with the ground tiles to check whether the player is standing on a ground tile")]
         private Tilemap groundTilemap;
+        [SerializeField] [Range(0.1f, 1f)] [Tooltip("How fast will the falling animation be")]
+        private float fallSpeed = 0.25f;
 
         private Rigidbody2D _rigidBody;
+        private WorldGenerator _generator;
+        private SpriteRenderer _spriteRenderer;
         private float _stamina;
+        private bool _immuneFromFall;
 
         /// <summary>
         /// The current horizontal facing of the player, can be left or right
@@ -57,6 +61,8 @@ namespace ResourceRun.Player
         {
             _stamina = maxStamina;
             _rigidBody = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _generator = FindObjectOfType<WorldGenerator>();
         }
 
         private void Update()
@@ -101,18 +107,41 @@ namespace ResourceRun.Player
 
         private void HandleFall()
         {
+            if (_immuneFromFall) return;
+            
             var gridX = Mathf.FloorToInt(transform.position.x);
             var gridY = Mathf.FloorToInt(transform.position.y);
 
             if (groundTilemap.GetTile(new Vector3Int(gridX, gridY, 0)) == null)
             {
                 Debug.Log($"The player stepped on a non-existing tile at x={gridX}; y={gridY}");
-
-                Application.Quit();
-#if UNITY_EDITOR
-                EditorApplication.ExitPlaymode();
-#endif
+                StartCoroutine(Fall(gridX, gridY));
             }
+        }
+
+        private IEnumerator Fall(float gridX, float gridY)
+        {
+            Frozen = true;
+            _immuneFromFall = true;
+            
+            transform.position = new Vector3(gridX + 0.5f, gridY + 0.5f, transform.position.z);
+            
+            while (transform.localScale.x > 0.25f)
+            {
+                transform.localScale = new Vector3(
+                    transform.localScale.x - 0.01f * fallSpeed,
+                    transform.localScale.y - 0.01f * fallSpeed, transform.localScale.z);
+                yield return new WaitForSeconds(0.01f);
+            }
+            
+            _spriteRenderer.enabled = false;
+
+            _generator.GenerateNextSeason();
+
+            _spriteRenderer.enabled = true;
+            transform.localScale = Vector3.one;
+            Frozen = false;
+            _immuneFromFall = false;
         }
 
         private void Move(float speed)

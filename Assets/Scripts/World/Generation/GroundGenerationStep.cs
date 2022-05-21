@@ -33,27 +33,27 @@ namespace ResourceRun.World.Generation
         {
             if (y == 0)
             {
-                if (x == 0) return generator.season.groundBottomLeftTile;
+                if (x == 0) return generator.Season.groundBottomLeftTile;
 
-                if (x == generator.worldWidth - 1) return generator.season.groundBottomRightTile;
+                if (x == generator.worldWidth - 1) return generator.Season.groundBottomRightTile;
 
-                return generator.season.groundBottomTile;
+                return generator.Season.groundBottomTile;
             }
 
             if (y == generator.worldHeight - 1)
             {
-                if (x == 0) return generator.season.groundTopLeftTile;
+                if (x == 0) return generator.Season.groundTopLeftTile;
 
-                if (x == generator.worldWidth - 1) return generator.season.groundTopRightTile;
+                if (x == generator.worldWidth - 1) return generator.Season.groundTopRightTile;
 
-                return generator.season.groundTopTile;
+                return generator.Season.groundTopTile;
             }
 
-            if (x == 0) return generator.season.groundLeftTile;
+            if (x == 0) return generator.Season.groundLeftTile;
 
-            if (x == generator.worldWidth - 1) return generator.season.groundRightTile;
+            if (x == generator.worldWidth - 1) return generator.Season.groundRightTile;
 
-            return generator.season.groundCenterTile;
+            return generator.Season.groundCenterTile;
         }
     }
 }

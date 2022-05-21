@@ -89,13 +89,13 @@ namespace ResourceRun.World
             if (TilePositionIsEmpty(x + 1, y))
             {
                 if (TilePositionIsEmpty(x, y - 1) && TilePositionIsEmpty(x, y + 1))
-                    SetToTile(_generator.season.groundRightAloneTile);
+                    SetToTile(_generator.Season.groundRightAloneTile);
                 else if (TilePositionIsEmpty(x, y - 1))
-                    SetToTile(_generator.season.groundBottomRightTile);
+                    SetToTile(_generator.Season.groundBottomRightTile);
                 else if (TilePositionIsEmpty(x, y + 1))
-                    SetToTile(_generator.season.groundTopRightTile);
+                    SetToTile(_generator.Season.groundTopRightTile);
                 else
-                    SetToTile(_generator.season.groundRightTile);
+                    SetToTile(_generator.Season.groundRightTile);
 
                 return;
             }
@@ -103,13 +103,13 @@ namespace ResourceRun.World
             if (TilePositionIsEmpty(x, y + 1))
             {
                 if (TilePositionIsEmpty(x - 1, y) && TilePositionIsEmpty(x + 1, y))
-                    SetToTile(_generator.season.groundTopAloneTile);
+                    SetToTile(_generator.Season.groundTopAloneTile);
                 else if (TilePositionIsEmpty(x - 1, y))
-                    SetToTile(_generator.season.groundTopLeftTile);
+                    SetToTile(_generator.Season.groundTopLeftTile);
                 else if (TilePositionIsEmpty(x + 1, y))
-                    SetToTile(_generator.season.groundTopRightTile);
+                    SetToTile(_generator.Season.groundTopRightTile);
                 else
-                    SetToTile(_generator.season.groundTopTile);
+                    SetToTile(_generator.Season.groundTopTile);
 
                 return;
             }
@@ -117,13 +117,13 @@ namespace ResourceRun.World
             if (TilePositionIsEmpty(x - 1, y))
             {
                 if (TilePositionIsEmpty(x, y - 1) && TilePositionIsEmpty(x, y + 1))
-                    SetToTile(_generator.season.groundLeftAloneTile);
+                    SetToTile(_generator.Season.groundLeftAloneTile);
                 else if (TilePositionIsEmpty(x, y - 1))
-                    SetToTile(_generator.season.groundBottomLeftTile);
+                    SetToTile(_generator.Season.groundBottomLeftTile);
                 else if (TilePositionIsEmpty(x, y + 1))
-                    SetToTile(_generator.season.groundTopLeftTile);
+                    SetToTile(_generator.Season.groundTopLeftTile);
                 else
-                    SetToTile(_generator.season.groundLeftTile);
+                    SetToTile(_generator.Season.groundLeftTile);
 
                 return;
             }
@@ -131,13 +131,13 @@ namespace ResourceRun.World
             if (TilePositionIsEmpty(x, y - 1))
             {
                 if (TilePositionIsEmpty(x - 1, y) && TilePositionIsEmpty(x + 1, y))
-                    SetToTile(_generator.season.groundBottomAloneTile);
+                    SetToTile(_generator.Season.groundBottomAloneTile);
                 else if (TilePositionIsEmpty(x - 1, y))
-                    SetToTile(_generator.season.groundBottomLeftTile);
+                    SetToTile(_generator.Season.groundBottomLeftTile);
                 else if (TilePositionIsEmpty(x + 1, y))
-                    SetToTile(_generator.season.groundBottomRightTile);
+                    SetToTile(_generator.Season.groundBottomRightTile);
                 else
-                    SetToTile(_generator.season.groundBottomTile);
+                    SetToTile(_generator.Season.groundBottomTile);
             }
         }
 

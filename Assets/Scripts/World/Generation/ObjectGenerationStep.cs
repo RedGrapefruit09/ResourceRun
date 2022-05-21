@@ -24,7 +24,7 @@ namespace ResourceRun.World.Generation
             _occupiedPositions.Clear();
             OccupySpawnArea();
 
-            foreach (var objectGroup in generator.season.objectGroups)
+            foreach (var objectGroup in generator.Season.objectGroups)
                 if (objectGroup.variants.Count > 0)
                     GenerateGroup(objectGroup);
         }
@@ -39,35 +39,42 @@ namespace ResourceRun.World.Generation
                 _occupiedPositions.Add(new Vector2Int(x, y));
         }
 
-        private void GenerateGroup(ObjectGroup group)
+        private void GenerateGroup(ObjectGroup objectGroup)
         {
             var weightedBag = new WeightedRandomBag<ObjectVariant>();
-            foreach (var variant in group.variants) weightedBag.AddEntry(variant, variant.weight);
+            foreach (var variant in objectGroup.variants) weightedBag.AddEntry(variant, variant.weight);
 
             for (var x = excludedEdgeArea; x < generator.worldWidth - excludedEdgeArea; ++x)
             for (var y = excludedEdgeArea; y < generator.worldHeight - excludedEdgeArea; ++y)
             {
                 var basePos = new Vector2Int(x, y);
 
-                var occupied = group.occupiedPositions
+                var occupied = objectGroup.occupiedPositions
                     .Select(offset => basePos + offset)
                     .Any(IsPositionOccupied);
                 if (occupied) continue;
 
                 var r = Random.Range(0, 1001);
-                if (r > group.frequency) continue;
+                if (r > objectGroup.frequency) continue;
 
-                var clone = Instantiate(group.basePrefab);
-                clone.transform.position = CalculateObjectPosition(x, y) + group.offset;
+                var clone = Instantiate(objectGroup.basePrefab);
+                clone.transform.position = CalculateObjectPosition(x, y) + objectGroup.offset;
 
                 var variant = weightedBag.GetRandom();
                 clone.GetComponent<SpriteRenderer>().sprite = variant.sprite;
 
-                if (clone.TryGetComponent<BoxCollider2D>(out var boxCollider)) boxCollider.size = variant.colliderSize;
+                if (clone.TryGetComponent<BoxCollider2D>(out var boxCollider))
+                {
+                    boxCollider.size = variant.colliderSize;
+                }
 
-                if (clone.TryGetComponent<Gatherable>(out var gatherable)) gatherable.LootTable = variant.lootTable;
+                if (clone.TryGetComponent<Gatherable>(out var gatherable))
+                {
+                    gatherable.LootTable = variant.lootTable;
+                    gatherable.LootTable.LootMultiplier = objectGroup.lootMultiplier;
+                }
 
-                foreach (var offset in group.occupiedPositions)
+                foreach (var offset in objectGroup.occupiedPositions)
                 {
                     var pos = basePos + offset;
                     _occupiedPositions.Add(pos);

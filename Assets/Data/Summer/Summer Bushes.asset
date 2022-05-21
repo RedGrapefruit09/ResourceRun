@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b41b4bf921449cfad0a7f09e77d6c2d, type: 3}
+  m_Name: Summer Bushes
+  m_EditorClassIdentifier: 
+  basePrefab: {fileID: 6752589934140906853, guid: e73442761b448eb4e9caa808b1e37918, type: 3}
+  frequency: 40
+  offset: {x: 0, y: 0, z: -0.5}
+  occupiedPositions:
+  - {x: 0, y: 0}
+  lootMultiplier: 1
+  variants:
+  - weight: 1
+    sprite: {fileID: 21300000, guid: 1e295fe2842240c44a51b720e9bc373c, type: 3}
+    colliderSize: {x: 0.94, y: 0.89}
+    lootTable: {fileID: 11400000, guid: c5d5028a648c7aa4486ef0129ac0662f, type: 2}
+  - weight: 1
+    sprite: {fileID: 21300000, guid: 3637f7a2ba3dad64d8a57eaaa9c1f8db, type: 3}
+    colliderSize: {x: 0.626, y: 0.636}
+    lootTable: {fileID: 11400000, guid: c5d5028a648c7aa4486ef0129ac0662f, type: 2}
+  - weight: 1
+    sprite: {fileID: 21300000, guid: bffe26661cf8ac3419a221667fdf403b, type: 3}
+    colliderSize: {x: 0.4, y: 0.4}
+    lootTable: {fileID: 11400000, guid: c5d5028a648c7aa4486ef0129ac0662f, type: 2}

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using ResourceRun.Player;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace ResourceRun.World.Generation
 {
@@ -12,17 +15,19 @@ namespace ResourceRun.World.Generation
         [SerializeField] [Tooltip("All GenerationSteps to be invoked when using this world generator")]
         private GenerationStep[] steps;
 
-        [Tooltip("A reference to the player's object so that the generator can put the player on a random position")]
-        public GameObject player;
-
         [Tooltip("The POT (power-of-two) generated world width. If NPOT, will be converted to POT")]
         public int worldWidth;
 
         [Tooltip("The POT (power-of-two) generated world height. If NPOT, will be converted to POT")]
         public int worldHeight;
 
-        [Tooltip("The Season (biome) of the world to generate. This ScriptableObject contains most generation settings")]
-        public Season season;
+        [Tooltip("All of the seasons in the game. These will be generated sequentially")]
+        public List<Season> allSeasons;
+
+        /// <summary>
+        /// The <see cref="Season"/> that was last generated or is currently being generated.
+        /// </summary>
+        public Season Season { get; private set; }
 
         private readonly List<GameObject> _objects = new List<GameObject>();
 
@@ -41,6 +46,31 @@ namespace ResourceRun.World.Generation
 
             Debug.Log("Initialized world generator");
 
+            GenerateNextSeason();
+        }
+
+        public void GenerateNextSeason()
+        {
+            if (Season != null)
+            {
+                var nextIndex = allSeasons.IndexOf(Season) + 1;
+
+                if (nextIndex >= allSeasons.Count)
+                {
+                    Application.Quit();
+#if UNITY_EDITOR
+                    EditorApplication.ExitPlaymode();
+#endif
+                    return;
+                }
+
+                Season = allSeasons[nextIndex];
+            }
+            else
+            {
+                Season = allSeasons[0];
+            }
+            
             GenerateWorld();
         }
 
@@ -93,7 +123,7 @@ namespace ResourceRun.World.Generation
 
             foreach (var step in steps) step.Generate();
 
-            Debug.Log($"Generated world: {worldWidth}x{worldHeight}, {season.seasonName}");
+            Debug.Log($"Generated world: {worldWidth}x{worldHeight}, {Season.seasonName}");
 
             _fade.StartFade();
             _player.transform.position = new Vector3(worldWidth / 2f, worldHeight / 2f);

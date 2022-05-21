@@ -7,22 +7,50 @@ using UnityEditor;
 
 namespace ResourceRun.Player
 {
+    /// <summary>
+    /// The script responsible for all types of player movement and for the player's stamina (consumption, regeneration and HUD display),
+    /// as it's directly related to the Ctrl + WASD movement type.
+    ///
+    /// This script also handles checking whether the player is on an existing ground tile. If not, it proceeds to generate the next season
+    /// or finish the game session if the season was winter.
+    /// </summary>
     public class PlayerMovement : MonoBehaviour
     {
-        [Header("Movement")] [SerializeField] private float movementSpeed;
-        [SerializeField] private float shiftSpeed;
-        [SerializeField] private float sprintSpeed;
-        [Header("Stamina")] [SerializeField] private float maxStamina;
-        [SerializeField] private float minStamina;
-        [SerializeField] private float staminaConsumption;
-        [SerializeField] private float staminaRegeneration;
-        [SerializeField] private Image staminaBar;
-        [Header("Other")] [SerializeField] private Tilemap groundTilemap;
+        [Header("Movement")]
+        [SerializeField] [Tooltip("The speed of the regular type of movement (WASD)")]
+        private float movementSpeed;
+        [SerializeField] [Tooltip("The speed of the slowed down movement type (Shift + WASD)")]
+        private float shiftSpeed;
+        [SerializeField] [Tooltip("The speed of the sped up movement type that uses up stamina (Ctrl + WASD)")]
+        private float sprintSpeed;
+        
+        [Header("Stamina")] 
+        [SerializeField] [Tooltip("The highest amount of stamina the player can have")]
+        private float maxStamina;
+        [SerializeField] [Tooltip("The lowest amount of stamina the player can have")]
+        private float minStamina;
+        [SerializeField] [Tooltip("The amount of stamina that is consumed when using Ctrl + WASD movement. Multiplied by Time.deltaTime")]
+        private float staminaConsumption;
+        [SerializeField] [Tooltip("The amount of stamina that is regenerated when not using Ctrl + WASD movement. Multiplied by Time.deltaTime")]
+        private float staminaRegeneration;
+        [SerializeField] [Tooltip("The stamina bar filled Image at the front (not the background Image)")]
+        private Image staminaBar;
+        
+        [Header("Other")]
+        [SerializeField] [Tooltip("The Tilemap with the ground tiles to check whether the player is standing on a ground tile")]
+        private Tilemap groundTilemap;
 
         private Rigidbody2D _rigidBody;
         private float _stamina;
 
+        /// <summary>
+        /// The current horizontal facing of the player, can be left or right
+        /// </summary>
         public PlayerFacing Facing { get; private set; } = PlayerFacing.Right;
+        
+        /// <summary>
+        /// A flag that can be toggled on and off to completely block any movement from the player and any stamina regeneration
+        /// </summary>
         public bool Frozen { private get; set; }
 
         private void Start()

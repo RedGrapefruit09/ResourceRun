@@ -5,10 +5,15 @@ using UnityEngine;
 
 namespace ResourceRun.Player
 {
+    /// <summary>
+    /// The script handling the player's side of the gathering process/mechanic, e.g. invoking the gathering process.
+    /// </summary>
     public class PlayerGathering : MonoBehaviour
     {
-        [SerializeField] private PlayerTrigger mineTrigger;
-        [SerializeField] private float floatSpeed;
+        [SerializeField] [Tooltip("The trigger for detecting Gatherable objects in the player's reach")]
+        private PlayerTrigger mineTrigger;
+        [SerializeField] [Tooltip("The speed of the player floating towards a certain point in the world. Multiplied by Time.deltaTime")]
+        private float floatSpeed;
 
         private PlayerInventory _inventory;
         private PlayerMovement _movement;

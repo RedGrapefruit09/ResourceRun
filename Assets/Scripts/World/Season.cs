@@ -4,11 +4,11 @@ using UnityEngine.Tilemaps;
 namespace ResourceRun.World
 {
     /// <summary>
-    ///     A <see cref="Season" /> is a <see cref="ScriptableObject" /> that represents a world generation biome.
-    ///     As the name might suggest, there are four seasons in the game being generated in the exact following order:
-    ///     Spring => Summer => Autumn => Winter
-    ///     This <see cref="ScriptableObject" /> contains ground <see cref="Tile" />s and <see cref="ObjectGroup" />s bound
-    ///     to generate only in this <see cref="Season" />.
+    /// A <see cref="Season" /> is a <see cref="ScriptableObject" /> that represents a world generation biome.
+    /// As the name might suggest, there are four seasons in the game being generated in the exact following order:
+    /// Spring => Summer => Autumn => Winter
+    /// This <see cref="ScriptableObject" /> contains ground <see cref="Tile" />s and <see cref="ObjectGroup" />s bound
+    /// to generate only in this <see cref="Season" />.
     /// </summary>
     [CreateAssetMenu(fileName = "New Season", menuName = "Game/Season")]
     public class Season : ScriptableObject

@@ -102,5 +102,8 @@ MonoBehaviour:
   efficiency: 1
   target: 0
   consumedDurability: 20
-  repairedDurability: 150
   animationRotations: 20
+  initialRepairEfficiency: 250
+  initialRepairCost: 3
+  repairEfficiencyDegradation: 0.1
+  repairCostIncrease: 2

@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace ResourceRun.Utilities
 {
+    /// <summary>
+    /// A simple utility that logs Unity <see cref="Debug"/> logging messages into a persistent log text file at the
+    /// <see cref="Application.persistentDataPath"/> with the message, exact date and time and <see cref="LogType"/>.
+    /// </summary>
     public class FileLogger : MonoBehaviour
     {
         private string _path;

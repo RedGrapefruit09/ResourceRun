@@ -3,9 +3,9 @@
 namespace ResourceRun.World.Generation
 {
     /// <summary>
-    ///     A <see cref="GenerationStep" /> for creating artificial world borders.
-    ///     Every world border is represented by a <see cref="GameObject" /> with a <see cref="BoxCollider2D" /> to avoid
-    ///     the player from going outside the world.
+    /// A <see cref="GenerationStep" /> for creating artificial world borders.
+    /// Every world border is represented by a <see cref="GameObject" /> with a <see cref="BoxCollider2D" /> to avoid
+    /// the player from going outside the world.
     /// </summary>
     public class BorderGenerationStep : GenerationStep
     {

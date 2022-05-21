@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 70b61860ec449104387ca8c5f1af2e70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,5 +97,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 1000
   label: Wood
-  tooltip: The essential game resource obtained from all trees
+  tooltipLine: 
   worth: 25

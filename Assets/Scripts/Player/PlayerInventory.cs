@@ -7,41 +7,19 @@ using UnityEngine.UI;
 
 namespace ResourceRun.Player
 {
+    /// <summary>
+    /// The sophisticated management class for the player inventory system, which deals with the internal inventory state, the front-facing
+    /// API, the backend logic and controls the inventory UI/HUD.
+    /// </summary>
     public class PlayerInventory : MonoBehaviour
     {
-        private void Start()
-        {
-            _playerTransform = FindObjectOfType<PlayerMovement>().transform;
-
-            for (var i = 0; i < InventorySize; ++i) _items.Add(null);
-
-            tooltipBox.SetActive(false);
-            cancelButton.SetActive(false);
-
-            foreach (var startupItem in startupItems) Item.CreateAndInsert(startupItem, this);
-
-            SelectItem(1);
-        }
-
-        private static bool IsSlotInvalid(int slot)
-        {
-            if (slot >= -1 && slot <= InventorySize) return false;
-
-            Debug.LogError($"Tried to get/set an Item to/from an invalid slot: {slot}");
-            return true;
-        }
-
-        [Serializable]
-        public struct InventoryUISlot
-        {
-            public Image itemImage;
-            public Image selectorImage;
-            public Text amountText;
-            public Text swapHintText;
-        }
-
         #region Data & State
 
+        /// <summary>
+        /// A list of input <see cref="KeyCode"/>s that correspond to keyboard keys for selecting inventory slots.
+        /// It is queried by index starting from zero, meaning that, for slot 1, the 0th index will be looked up.
+        /// This must be hard-coded as there's currently no way of automatically grouping together these alphanumeric <see cref="KeyCode"/>s.
+        /// </summary>
         private static readonly List<KeyCode> SlotSelectBindings = new List<KeyCode>
         {
             KeyCode.Alpha0,
@@ -56,16 +34,28 @@ namespace ResourceRun.Player
             KeyCode.Alpha9
         };
 
+        /// <summary>
+        /// The hard-coded constant inventory size.
+        /// This inventory is only represented by the hotbar, there is no extra big popup UI with the rest of the slots.
+        /// </summary>
         private const int InventorySize = 10;
 
-        [SerializeField] private InventoryUISlot[] slots;
-        [SerializeField] private GameObject droppedItemPrefab;
-        [SerializeField] private GameObject tooltipBox;
-        [SerializeField] private Text itemNameText;
-        [SerializeField] private Text itemTooltipText;
-        [SerializeField] private GameObject[] startupItems;
-        [SerializeField] private Sprite uiSprite;
-        [SerializeField] private GameObject cancelButton;
+        [SerializeField] [Tooltip("A list of UI descriptions of every slot with links to the relevant UI components")]
+        private InventoryUISlot[] slots;
+        [SerializeField] [Tooltip("A prefab for dropped item instances")]
+        private GameObject droppedItemPrefab;
+        [SerializeField] [Tooltip("The GameObject for the tooltip UI/box")]
+        private GameObject tooltipBox;
+        [SerializeField] [Tooltip("The Text of the label/name of the shown item")]
+        private Text itemNameText;
+        [SerializeField] [Tooltip("The Text containing the primary tooltip string")]
+        private Text itemTooltipText;
+        [SerializeField] [Tooltip("A list of item prefabs to be instantiated and given out when the game starts (initial set of items)")]
+        private GameObject[] startupItems;
+        [SerializeField] [Tooltip("A reference to the default Unity UISprite placeholder")]
+        private Sprite uiSprite;
+        [SerializeField] [Tooltip("The GameObject of the button for canceling the swap selection to be shown and hidden")]
+        private GameObject cancelButton;
 
         private readonly List<Item> _items = new List<Item>();
         private int _selectedItemSlot = 1;
@@ -80,13 +70,39 @@ namespace ResourceRun.Player
 
         #endregion
 
+        private void Start()
+        {
+            _playerTransform = FindObjectOfType<PlayerMovement>().transform;
+
+            for (var i = 0; i < InventorySize; ++i) _items.Add(null);
+
+            tooltipBox.SetActive(false);
+            cancelButton.SetActive(false);
+
+            foreach (var startupItem in startupItems) Item.CreateAndInsert(startupItem, this);
+
+            SelectItem(1);
+        }
+        
         #region API
 
+        /// <summary>
+        /// Checks if the given slot is valid and returns the item at the given slot in the inventory.
+        /// </summary>
+        /// <param name="slot">The slot to be queried</param>
+        /// <returns>The item currently at that given slot</returns>
+        /// <remarks><see langword="null"/> can also be returned if the slot is invalid or if there is no item at that slot</remarks>
         public Item GetItem(int slot)
         {
             return IsSlotInvalid(slot) ? null : _items[slot - 1];
         }
 
+        /// <summary>
+        /// Sets an item to the given slot, if that slot is valid.
+        /// If the given slot is the one being selected, the internal cache will also be updated and a notification may be sent out.
+        /// </summary>
+        /// <param name="slot">The inventory slot to be updated</param>
+        /// <param name="item">The new <see cref="Item"/> value. Can be set to <see langword="null"/></param>
         public void SetItem(int slot, Item item)
         {
             if (IsSlotInvalid(slot)) return;
@@ -101,6 +117,11 @@ namespace ResourceRun.Player
             }
         }
 
+        /// <summary>
+        /// If there's enough space in the inventory, inserts the given item at an empty slot or a slot with enough space.
+        /// </summary>
+        /// <param name="insertedItem">The inserted <see cref="Item"/> instance, must not be <see langword="null"/>!</param>
+        /// <returns><see langword="true"/> if the insertion operation was successful, <see langword="false"/> otherwise</returns>
         public bool InsertItem(Item insertedItem)
         {
             for (var i = 1; i <= InventorySize; ++i)
@@ -133,6 +154,11 @@ namespace ResourceRun.Player
             return false;
         }
 
+        /// <summary>
+        /// If possible, extracts a certain amount of the given item from the inventory.
+        /// </summary>
+        /// <param name="extractedItem">The reference instance of the extracted <see cref="Item"/>. Will only be used for comparison</param>
+        /// <param name="amount">The desired amount of the given item to be extracted</param>
         public void ExtractItem(Item extractedItem, int amount = 1)
         {
             CombineDuplicates();
@@ -154,6 +180,11 @@ namespace ResourceRun.Player
             }
         }
 
+        /// <summary>
+        /// Counts the amount of the given item that is currently present in the inventory.
+        /// </summary>
+        /// <param name="countedItem">The reference instance of the <see cref="Item"/>, only used for comparison</param>
+        /// <returns>The exact amount of that item currently present</returns>
         public int CountOfItem(Item countedItem)
         {
             var amount = 0;
@@ -168,6 +199,12 @@ namespace ResourceRun.Player
             return amount;
         }
 
+        /// <summary>
+        /// Shifts all slots' contents from the position after the given slot by the given offset backwards.
+        /// No checks are made in regards for the offset, so be careful when calling this!
+        /// </summary>
+        /// <param name="slot">The slot, after which the shifted slots start</param>
+        /// <param name="offset">The exact offset, by which the proceeding slots should be shifted backwards</param>
         private void ShiftBackFrom(int slot, int offset)
         {
             if (slot >= InventorySize) return;
@@ -180,6 +217,11 @@ namespace ResourceRun.Player
             }
         }
 
+        /// <summary>
+        /// Compresses and compacts together everything in the inventory.
+        /// This involves combining duplicates and shifting backwards all items to the left as much as possible.
+        /// </summary>
+        /// <seealso cref="ShiftBackFrom"/>
         public void Compress()
         {
             CombineDuplicates();
@@ -203,6 +245,10 @@ namespace ResourceRun.Player
             }
         }
 
+        /// <summary>
+        /// Combines duplicate items of the same type (label) together into a single item representing that type, if the
+        /// <see cref="Item.Amount"/> and <see cref="Item.maxCount"/> allow it.
+        /// </summary>
         private void CombineDuplicates()
         {
             var encounters = new Dictionary<string, int>();
@@ -227,6 +273,11 @@ namespace ResourceRun.Player
             }
         }
 
+        /// <summary>
+        /// Destroys and removes the item at the given slot from the inventory.
+        /// The slot of the given item is detected automatically.
+        /// </summary>
+        /// <param name="item">The <see cref="Item"/> instance to be destroyed and removed</param>
         public void RemoveItem(Item item)
         {
             var slot = _items.IndexOf(item) + 1;
@@ -234,6 +285,10 @@ namespace ResourceRun.Player
             Destroy(item.gameObject);
         }
 
+        /// <summary>
+        /// Returns the currently selected (held) item, with no guarantees of it being not <see langword="null"/>.
+        /// </summary>
+        /// <returns>The currently selected item</returns>
         public Item GetSelectedItem()
         {
             return _selectedItem;
@@ -243,6 +298,9 @@ namespace ResourceRun.Player
 
         #region Tooltips
 
+        /// <summary>
+        /// If the tooltip for the selected item is currently being shown, hides it, else, shows it.
+        /// </summary>
         public void TriggerTooltip()
         {
             if (_tooltipShown)
@@ -295,6 +353,10 @@ namespace ResourceRun.Player
 
         #region Item Swapping
 
+        /// <summary>
+        /// Tries to swap the item at the given slot with the previous registered slot.
+        /// </summary>
+        /// <param name="slot">The attempted slot to be swapped from/with.</param>
         public void TrySwapItem(int slot)
         {
             cancelButton.SetActive(true);
@@ -336,6 +398,9 @@ namespace ResourceRun.Player
             CancelSwap();
         }
 
+        /// <summary>
+        /// Cancels or suspends the swap or swap setup that is currently taking place.
+        /// </summary>
         public void CancelSwap()
         {
             cancelButton.SetActive(false);
@@ -349,6 +414,10 @@ namespace ResourceRun.Player
 
         #region Item Operations
 
+        /// <summary>
+        /// Selects the item at the given slot, no matter whether it is <see langword="null"/>.
+        /// </summary>
+        /// <param name="slot">The slot to be selected</param>
         public void SelectItem(int slot)
         {
             if (BlockSelection) return;
@@ -455,5 +524,22 @@ namespace ResourceRun.Player
         }
 
         #endregion
+        
+        private static bool IsSlotInvalid(int slot)
+        {
+            if (slot >= -1 && slot <= InventorySize) return false;
+
+            Debug.LogError($"Tried to get/set an Item to/from an invalid slot: {slot}");
+            return true;
+        }
+
+        [Serializable]
+        public struct InventoryUISlot
+        {
+            public Image itemImage;
+            public Image selectorImage;
+            public Text amountText;
+            public Text swapHintText;
+        }
     }
 }

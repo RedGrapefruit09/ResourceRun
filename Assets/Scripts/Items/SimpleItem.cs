@@ -1,11 +1,16 @@
-﻿using ResourceRun.Player;
+﻿using System.Text;
+using ResourceRun.Player;
 using UnityEngine;
 
 namespace ResourceRun.Items
 {
+    /// <summary>
+    /// A base implementation of an <see cref="Item"/> that contains essential animation and tooltip support.
+    /// </summary>
     public class SimpleItem : Item
     {
-        [SerializeField] private string tooltipLine;
+        [SerializeField] [Tooltip("The static line of text to be displayed at the top of this item's tooltip")]
+        private string tooltipLine;
 
         private PlayerMovement _playerMovement;
         private SpriteRenderer _spriteRenderer;
@@ -45,9 +50,9 @@ namespace ResourceRun.Items
             gameObject.SetActive(false);
         }
 
-        public override void BuildTooltip(ItemTooltip tooltip)
+        public override void BuildTooltip(StringBuilder tooltip)
         {
-            tooltip.Add(tooltipLine);
+            tooltip.AppendLine(tooltipLine);
         }
     }
 }

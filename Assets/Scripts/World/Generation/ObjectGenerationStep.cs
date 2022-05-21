@@ -7,7 +7,7 @@ using UnityEngine;
 namespace ResourceRun.World.Generation
 {
     /// <summary>
-    ///     This <see cref="GenerationStep" /> is for spawning in different objects from <see cref="ObjectGroup" />s.
+    /// This <see cref="GenerationStep" /> is for spawning in different objects from <see cref="ObjectGroup" />s.
     /// </summary>
     public class ObjectGenerationStep : GenerationStep
     {

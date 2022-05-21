@@ -4,6 +4,10 @@ using System.Linq;
 
 namespace ResourceRun.Utilities
 {
+    /// <summary>
+    /// An implementation of a simple weighted list collection (bag) using generics.
+    /// </summary>
+    /// <typeparam name="T">The generic type of the entries being stored in this <see cref="WeightedRandomBag{T}"/></typeparam>
     public class WeightedRandomBag<T>
     {
         private readonly List<Entry> _entries = new List<Entry>();

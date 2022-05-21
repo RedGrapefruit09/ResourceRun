@@ -6,22 +6,37 @@ using UnityEngine.UI;
 
 namespace ResourceRun.Player
 {
+    /// <summary>
+    /// A script responsible for the upgrades system implementation and UI screen.
+    /// </summary>
     public class PlayerUpgrades : MonoBehaviour
     {
-        [SerializeField] private ItemRecipe[] recipes;
+        [SerializeField] [Tooltip("A registry list of all existing item recipes to be queried for an applicable recipe")]
+        private ItemRecipe[] recipes;
 
-        [Header("Colors")] [SerializeField] private Color fulfilledColor;
-        [SerializeField] private Color beingCollectedColor;
-        [SerializeField] private Color missingColor;
+        [Header("Colors")] 
+        [SerializeField] [Tooltip("The color representing the state, in which enough or more than enough of the ingredient has been obtained")]
+        private Color fulfilledColor = Color.green;
+        [SerializeField] [Tooltip("The color representing the state, in which the ingredient requirement has partially been fulfilled")]
+        private Color partiallyFulfilledColor = Color.yellow;
+        [SerializeField] [Tooltip("The color representing the state, in which no amount of the ingredient has been obtained")]
+        private Color missingColor = Color.red;
 
-        [Header("UI")] [SerializeField] private GameObject rootUIObject;
-        [SerializeField] private GameObject contentRootObject;
-        [SerializeField] private Text outputNameText;
-        [SerializeField] private Text upgradeButtonText;
-        [SerializeField] private Text issueText;
-        [SerializeField] private IngredientUI[] ingredients;
+        [Header("UI")]
+        [SerializeField] [Tooltip("The root GameObject for the UI screen")]
+        private GameObject rootUIObject;
+        [SerializeField] [Tooltip("The content GameObject for the inner contents of the UI screen")]
+        private GameObject contentRootObject;
+        [SerializeField] [Tooltip("The reference to the name text of the outputted item")]
+        private Text outputNameText;
+        [SerializeField] [Tooltip("The reference to the text on the upgrade button")]
+        private Text upgradeButtonText;
+        [SerializeField] [Tooltip("The reference to the issue text")]
+        private Text issueText;
+        [SerializeField] [Tooltip("All of the ingredients' individual data wrapped in an IngredientUI struct")]
+        private IngredientUI[] ingredients;
+        
         private ItemRecipe _currentRecipe;
-
         private PlayerInventory _inventory;
         private Item _previousSelectedItem;
 
@@ -101,7 +116,7 @@ namespace ResourceRun.Player
 
                 Color color;
                 if (count == 0) color = missingColor;
-                else if (count < ingredient.requirement) color = beingCollectedColor;
+                else if (count < ingredient.requirement) color = partiallyFulfilledColor;
                 else color = fulfilledColor;
 
                 ui.iconImage.sprite = ingredient.item.GetComponent<SpriteRenderer>().sprite;

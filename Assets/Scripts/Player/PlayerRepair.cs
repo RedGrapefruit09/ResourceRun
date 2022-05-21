@@ -6,29 +6,48 @@ using UnityEngine.UI;
 
 namespace ResourceRun.Player
 {
+    /// <summary>
+    /// The script responsible for the repair mechanic, UI and implementation-wise
+    /// </summary>
     public class PlayerRepair : MonoBehaviour
     {
-        [Header("Functionality")] [SerializeField]
+        [Header("Functionality")]
+        [SerializeField] [Tooltip("A registry of prefabs for all items that can serve as ingredients for tool repair")]
         private GameObject[] ingredientRegistry;
 
-        [SerializeField] private float processTime;
+        [SerializeField] [Tooltip("The processing time in seconds")]
+        private float processTime;
 
-        [Header("Colors")] [SerializeField] private Color fulfilledColor = Color.green;
-        [SerializeField] private Color partiallyFulfilledColor = Color.yellow;
-        [SerializeField] private Color missingColor = Color.red;
+        [Header("Colors")]
+        [SerializeField] [Tooltip("The color to show when there's enough of an ingredient")]
+        private Color fulfilledColor = Color.green;
+        [SerializeField] [Tooltip("The color to show when the ingredient requirement has partially been fulfilled")]
+        private Color partiallyFulfilledColor = Color.yellow;
+        [SerializeField] [Tooltip("The color to show when the ingredient is completely missing")]
+        private Color missingColor = Color.red;
 
-        [Header("UI")] [SerializeField] private GameObject rootObject;
-        [SerializeField] private GameObject contentObject;
-        [SerializeField] private Text issueText;
-        [SerializeField] private Text repairButtonText;
-        [SerializeField] private Text ingredientStatusText;
-        [SerializeField] private GameObject barObject;
-        [SerializeField] private Image barImage;
-        [SerializeField] private Image inputItemImage;
-        [SerializeField] private Image ingredientItemImage;
+        [Header("UI")]
+        [SerializeField] [Tooltip("The GameObject of the root UI screen")]
+        private GameObject rootObject;
+        [SerializeField] [Tooltip("The GameObject containing the root screen's primary contents")]
+        private GameObject contentObject;
+        [SerializeField] [Tooltip("The Text to be displayed instead of the contentObject when something goes wrong or a requirement isn't met")]
+        private Text issueText;
+        [SerializeField] [Tooltip("The Text on the repair Button, which is used for color manipulation to indicate the ingredient status")]
+        private Text repairButtonText;
+        [SerializeField] [Tooltip("The Text displaying the current ingredient status")]
+        private Text ingredientStatusText;
+        [SerializeField] [Tooltip("The GameObject containing both the background and the actual filled-type bar Image")]
+        private GameObject barObject;
+        [SerializeField] [Tooltip("The progress bar Image")]
+        private Image barImage;
+        [SerializeField] [Tooltip("The Image for the icon of the item being repaired")]
+        private Image inputItemImage;
+        [SerializeField] [Tooltip("The Image for the icon of the item that is treated as an ingredient for the repair")]
+        private Image ingredientItemImage;
+        
         private bool _canRepair;
         private Item _ingredient;
-
         private PlayerInventory _inventory;
         private bool _processRunning;
         private ToolItem _tool;

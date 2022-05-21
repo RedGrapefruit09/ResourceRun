@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ResourceRun.World.Generation
 {
     /// <summary>
-    ///     The procedural world generation system for ResourceRun.
+    /// The procedural world generation system for ResourceRun.
     /// </summary>
     public class WorldGenerator : MonoBehaviour
     {
@@ -45,10 +45,10 @@ namespace ResourceRun.World.Generation
         }
 
         /// <summary>
-        ///     Clears everything in the scene that was generated prior to calling this method.
-        ///     The cleared objects include all positional and regular objects.
-        ///     <see cref="GenerationStep" />s can optionally define a <see cref="GenerationStep.Clear" /> method with
-        ///     custom clearing logic that will be executed by this method.
+        /// Clears everything in the scene that was generated prior to calling this method.
+        /// The cleared objects include all positional and regular objects.
+        /// <see cref="GenerationStep" />s can optionally define a <see cref="GenerationStep.Clear" /> method with
+        /// custom clearing logic that will be executed by this method.
         /// </summary>
         private void ClearWorld()
         {
@@ -68,8 +68,8 @@ namespace ResourceRun.World.Generation
         }
 
         /// <summary>
-        ///     Generates the world using all configured <see cref="GenerationStep" />s.
-        ///     <see cref="ClearWorld" /> will be automatically called by this method!
+        /// Generates the world using all configured <see cref="GenerationStep" />s.
+        /// <see cref="ClearWorld" /> will be automatically called by this method!
         /// </summary>
         private void GenerateWorld()
         {
@@ -100,7 +100,7 @@ namespace ResourceRun.World.Generation
         }
 
         /// <summary>
-        ///     Registers a new "positional" (tied to a grid position) world object to the generator's internal registry.
+        /// Registers a new "positional" (tied to a grid position) world object to the generator's internal registry.
         /// </summary>
         /// <param name="x">The grid X position</param>
         /// <param name="y">The grid Y position</param>
@@ -111,8 +111,8 @@ namespace ResourceRun.World.Generation
         }
 
         /// <summary>
-        ///     Destroys a positional object at a given position manually (typically it's done automatically
-        ///     by <see cref="ClearWorld" />), if there is one.
+        /// Destroys a positional object at a given position manually (typically it's done automatically
+        /// by <see cref="ClearWorld" />), if there is one.
         /// </summary>
         /// <param name="x">The grid X position</param>
         /// <param name="y">The grid Y position</param>
@@ -131,7 +131,7 @@ namespace ResourceRun.World.Generation
         }
 
         /// <summary>
-        ///     Registers a new object to the generator's internal registry.
+        /// Registers a new object to the generator's internal registry.
         /// </summary>
         /// <param name="obj">The Unity <see cref="GameObject" /> instance of the registered object</param>
         public void AddObject(GameObject obj)

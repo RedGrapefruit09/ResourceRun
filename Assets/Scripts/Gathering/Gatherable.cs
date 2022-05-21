@@ -4,23 +4,40 @@ using UnityEngine;
 
 namespace ResourceRun.Gathering
 {
+    /// <summary>
+    /// A <see cref="Gatherable"/> is an object in the game world that can be gathered (collected) using a <see cref="ToolItem"/>.
+    /// </summary>
     public class Gatherable : MonoBehaviour
     {
-        [Header("Common Settings")] public ToolTarget target;
+        [Header("Common Settings")]
+        [Tooltip("Which tool target fits this Gatherable")]
+        public ToolTarget target;
+        [SerializeField] [Tooltip("The base delay in seconds for switching overlay frames or rotations")]
+        private float baseGatherDelay = 1f;
+        [SerializeField] [Tooltip("By how much a single unit of tool efficiency reduces the gather delay")]
+        private float gatherDelayReducer = 0.05f;
+        [SerializeField] [Tooltip("The lowest value that a gather delay could possibly have")]
+        private float minimalGatherDelay = 0.05f;
+        [SerializeField] [Tooltip("A prefab used for dropping the collected items from gathering this object")]
+        private GameObject droppedItemPrefab;
 
-        [SerializeField] private float baseGatherDelay = 1f;
-        [SerializeField] private float gatherDelayReducer = 0.05f;
-        [SerializeField] private float minimalGatherDelay = 0.05f;
-        [SerializeField] private GameObject droppedItemPrefab;
-
-        [Header("Animation Settings")] [SerializeField]
+        [Header("Animation Settings")]
+        [SerializeField] [Tooltip("The method of animation used for animating the gathering animation for this object")]
         private GatherableAnimationType animationType;
+        [SerializeField] [Tooltip("For animationType=Overlay. All the overlay animation frames")]
+        private Sprite[] overlays;
+        [SerializeField] [Tooltip("For animationType=Fall. The maximum Z rotation degree of the fall")]
+        private float maxFallRotation;
 
-        [SerializeField] private Sprite[] overlays;
-        [SerializeField] private float maxFallRotation;
-
+        /// <summary>
+        /// The <see cref="GatherableLootTable"/> that is bound to this <see cref="Gatherable"/> object.
+        /// </summary>
         public GatherableLootTable LootTable { private get; set; }
 
+        /// <summary>
+        /// A coroutine that plays the gathering animation, drops the <see cref="LootTable"/> and destroys this <see cref="Gatherable"/>.
+        /// </summary>
+        /// <param name="tool">The <see cref="ToolItem"/> used to gather this <see cref="Gatherable"/> object</param>
         public IEnumerator Gather(ToolItem tool)
         {
             var delay = baseGatherDelay - gatherDelayReducer * tool.efficiency;
@@ -65,8 +82,8 @@ namespace ResourceRun.Gathering
             LootTable.Generate(
                 droppedItemPrefab,
                 transform.position,
-                -1f, -1f,
-                1f, 1f);
+                minXSpread: -1f, minYSpread: -1f,
+                maxXSpread: 1f, maxYSpread: 1f);
 
             Destroy(gameObject);
         }
